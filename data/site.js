@@ -4,6 +4,45 @@ const SITE={
 };
 const PROJECTS=[
   {
+    slug:"dengue",
+    title:"Forecasting dengue hospital admissions in Bangladesh",
+    repo:"Bangladesh-Dengue-Forecasting-Analysis",
+    image:"assets/projects/dengue.jpg",
+    year:"2026",
+    field:"Public health, time series forecasting",
+    summary:"Weekly forecasts one to four weeks ahead for the eight divisions, built on DGHS dashboard data from 2023 to 2026, with data repair, a weather lag model, five forecasting models and a Power BI dashboard.",
+    result:"Only XGBoost was clearly better than repeating last week in both test years.",
+    intro:"Weekly forecasts one to four weeks ahead for the eight divisions of Bangladesh, built on DGHS dashboard data from 2023 to 2026, with data repair, seasonality, a weather lag model, five forecasting models and a Power BI dashboard.",
+    question:"How many dengue admissions should each division expect in the next one to four weeks, and how far can that forecast be trusted?",
+    data:"592,614 hospital admissions and 2,912 deaths over 195 weeks, up to the week of 20 September 2026. DGHS publishes the counts only as charts on a dashboard, so the numbers were read out of the chart code, checked against each other and repaired.",
+    tools:["R (forecast, dlnm)","Python","DuckDB SQL","XGBoost","Power BI"],
+    findings:[
+      {stat:"105,000",title:"The data needed repair before any model could be trusted",text:"About 105,000 admissions were missing from the 2023 division series. Dhaka stopped counting its two city corporations and Barishal reported zero at its own peak. Both were rebuilt from 176 daily DGHS press releases."},
+      {stat:"3 times",title:"2023 was about three times the size of the years after it",text:"316,906 admissions in 2023, against 100,971 in 2024 and 102,788 in 2025. By week 39, 2026 was running at 1.58 times 2025 at the same week."},
+      {stat:"401 per 100,000",title:"Per person, Barishal is hit hardest, not Dhaka",text:"Barishal had the highest admission rate in three of the four years. Dhaka division's share of national admissions fell from 53.5% in 2023 to 40.3% in 2026 so far."},
+      {stat:"61% male",title:"Young men are admitted most, but women and older people die more often",text:"Ages 16 to 30 are 40% of admissions and 61% of admissions are male. Women are 37% to 40% of admissions in each year but 48% to 57% of deaths."},
+      {stat:"0.12",title:"Most of the weather signal was the calendar",text:"Admissions correlate at 0.5 to 0.8 with rain, temperature and dew point six to ten weeks earlier. Once the yearly cycle is removed from both, the strongest correlation left is 0.12."},
+      {stat:"p = 0.028",title:"Only XGBoost clearly beat repeating last week in both years",text:"No model won both years: XGBoost led in 2025 and ARIMA with Fourier terms in 2026. On Diebold-Mariano tests only XGBoost beat the last-value forecast in both, p = 0.028 and 0.025."}
+    ],
+    methods:[
+      "Read the daily and weekly counts out of the DGHS dashboard's chart code, with one dated snapshot per year.",
+      "Audited and repaired the series, rebuilding Dhaka and Barishal for 2023 from 176 daily press releases, with every rule logged.",
+      "Answered 11 questions in DuckDB SQL, including the two no-model forecasts every model has to beat.",
+      "Set the modelling rules in the EDA on 2023 to 2025 only, so the test year stayed out of every choice.",
+      "Trained XGBoost with quantile ranges and a random forest, one model per horizon, retrained every week as rolling forecasts.",
+      "Measured seasonality with STL and the weather effect with a distributed lag non-linear model in R.",
+      "Fitted ARIMA with Fourier terms by Box-Jenkins, ETS and a negative binomial model, then scored all models on the same 2,912 forecasts.",
+      "Built an 8-page Power BI dashboard on 47 tables that only displays the results."
+    ],
+    shots:[
+      {src:"assets/projects/dengue/1.jpg",caption:"Executive summary"},
+      {src:"assets/projects/dengue/2.jpg",caption:"Geography"},
+      {src:"assets/projects/dengue/3.jpg",caption:"Forecasts"},
+      {src:"assets/projects/dengue/4.jpg",caption:"Model comparison"}
+    ],
+    links:[{label:"Read the full report",path:"Bangladesh%20Dengue%20Forecasting%20Analysis%20Report.pdf"}]
+  },
+  {
     slug:"nhanes",
     title:"Cardiometabolic risk and mortality in US adults",
     repo:"NHANES-Cardiometabolic-Mortality-Analysis",
