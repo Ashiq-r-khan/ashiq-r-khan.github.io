@@ -8,7 +8,7 @@ Plain HTML, CSS and JavaScript. No build step.
 
 | To change | Edit |
 |---|---|
-| Projects | `data/site.js`, the `PROJECTS` list. Add a cover image (16:9) to `assets/projects/`. |
+| Projects | `data/site.js`, the `PROJECTS` list. Each entry builds a home card and its own page (`project.html?p=slug`) with findings, methods and screenshots. Put the cover (16:9) in `assets/projects/` and screenshots in `assets/projects/<slug>/`. |
 | Blog posts | `data/site.js`, the `POSTS` list. The Blog section appears once there is one post. |
 | Email, contact form key | `data/site.js`, the `SITE` block |
 | Hero, about, skills, certifications | `index.html` |
