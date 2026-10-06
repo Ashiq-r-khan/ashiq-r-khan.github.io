@@ -21,6 +21,10 @@ A blog post entry looks like this:
 {date:"October 2026", title:"Post title", excerpt:"First two or three lines of the post.", url:"https://www.linkedin.com/posts/..."}
 ```
 
+## After changing CSS or JavaScript
+
+Browsers keep old copies of `css/style.css`, `js/*.js` and `data/site.js` for a while. After editing any of them, change the `?v=20261006` number in `index.html` and `project.html` to a new value (today's date works), so visitors get the new files straight away.
+
 ## Contact form
 
 The form sends through Web3Forms. Get a free access key at https://web3forms.com, then paste it into `web3formsKey` in `data/site.js`. While the key is empty the form opens the visitor's email app instead.
