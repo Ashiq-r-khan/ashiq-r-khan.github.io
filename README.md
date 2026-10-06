@@ -23,7 +23,7 @@ A blog post entry looks like this:
 
 ## After changing CSS or JavaScript
 
-Browsers keep old copies of `css/style.css`, `js/*.js` and `data/site.js` for a while. After editing any of them, change the `?v=20261006` number in `index.html` and `project.html` to a new value (today's date works), so visitors get the new files straight away.
+Browsers keep old copies of `css/style.css`, `js/*.js` and `data/site.js` for a while. After editing any of them, change the `?v=...` value in `index.html` and `project.html` to a new value (today's date works), so visitors get the new files straight away.
 
 ## Contact form
 
