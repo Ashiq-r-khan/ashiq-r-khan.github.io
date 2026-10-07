@@ -95,7 +95,7 @@ ICONS = """<svg width="0" height="0" style="position:absolute" aria-hidden="true
 
 NAV = """<header class="nav">
   <div class="wrap nav__row">
-    <a class="nav__brand" href="../index.html">ashiqur.khan</a>
+    <a class="nav__brand" href="../index.html">ASHIQ.KHAN</a>
     <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="icon"><use href="#i-menu"/></svg></button>
     <nav id="nav-links" aria-label="Sections">
       <a href="../index.html">Home</a>
