@@ -40,7 +40,7 @@ const PROJECTS=[
       {src:"assets/projects/dengue/3.jpg",caption:"Forecasts"},
       {src:"assets/projects/dengue/4.jpg",caption:"Model comparison"}
     ],
-    links:[{label:"Read the full report",path:"Bangladesh%20Dengue%20Forecasting%20Analysis%20Report.pdf"}]
+    links:[{label:"Read the full report",href:"assets/reports/dengue.pdf"}]
   },
   {
     slug:"nhanes",
@@ -78,7 +78,7 @@ const PROJECTS=[
       {src:"assets/projects/nhanes/3.jpg",caption:"Competing risks and causes of death"},
       {src:"assets/projects/nhanes/4.jpg",caption:"Causal effects and attributable burden"}
     ],
-    links:[{label:"Read the full report",path:"NHANES%20Cardiometabolic%20Mortality%20Analysis%20Report.pdf"}]
+    links:[{label:"Read the full report",href:"assets/reports/nhanes.pdf"}]
   },
   {
     slug:"diabetes",
@@ -116,7 +116,7 @@ const PROJECTS=[
       {src:"assets/projects/diabetes/3.jpg",caption:"Statistical and model results"},
       {src:"assets/projects/diabetes/4.jpg",caption:"Risk tiers and what-if"}
     ],
-    links:[{label:"Read the full report",path:"Diabetes%20Readmission%20Analysis%20Report.pdf"}]
+    links:[{label:"Read the full report",href:"assets/reports/diabetes.pdf"}]
   },
   {
     slug:"wind",
@@ -188,7 +188,7 @@ const PROJECTS=[
       {src:"assets/projects/dunnhumby/3.jpg",caption:"Baskets"},
       {src:"assets/projects/dunnhumby/4.jpg",caption:"Campaigns"}
     ],
-    links:[{label:"View the dashboard PDF",path:"outputs/dashboard/Dunnhumby_Dashboard.pdf"}]
+    links:[{label:"View the dashboard PDF",href:"assets/reports/dunnhumby-dashboard.pdf"}]
   },
   {
     slug:"berka",
@@ -256,7 +256,7 @@ const PROJECTS=[
       {src:"assets/projects/olist/3.jpg",caption:"Delivery and satisfaction"},
       {src:"assets/projects/olist/4.jpg",caption:"Customers and sellers"}
     ],
-    links:[{label:"Read the full report",path:"report/Olist_Step07_Report.pdf"}]
+    links:[{label:"Read the full report",href:"assets/reports/olist.pdf"}]
   }
 ];
 const SERIES={
