@@ -259,5 +259,40 @@ const PROJECTS=[
     links:[{label:"Read the full report",path:"report/Olist_Step07_Report.pdf"}]
   }
 ];
+const SERIES={
+  "Statistics for Public Health":{
+    text:"My study notes on the statistics a public health data analyst uses every day. Each idea has a definition in simple words, the formula and a worked example.",
+    pdf:"assets/notes/statistics-for-public-health.pdf"
+  }
+};
 const POSTS=[
+  {
+    slug:"descriptive-statistics",
+    series:"Statistics for Public Health",
+    part:1,
+    date:"7 October 2026",
+    minutes:26,
+    title:"Descriptive statistics for public health",
+    excerpt:"How to summarise health data in a few numbers that are correct: counts and rates, mean and median, spread, z-scores, correlation and Table 1."
+  },
+  {
+    slug:"probability-and-distributions",
+    series:"Statistics for Public Health",
+    part:2,
+    date:"7 October 2026",
+    minutes:24,
+    title:"Probability and distributions for public health",
+    excerpt:"Risk, odds and conditional probability, why a positive test can still be wrong most of the time, and how to match count data to a distribution."
+  },
+  {
+    slug:"inferential-statistics",
+    series:"Statistics for Public Health",
+    part:3,
+    date:"7 October 2026",
+    minutes:34,
+    title:"Inferential statistics for public health",
+    excerpt:"What a sample can say about a population: standard errors, confidence intervals, p-values, power, sample size and choosing the right test."
+  }
 ];
+const postUrl=(p,base="")=>p.url||`${base}blog/${p.slug}.html`;
+const postCard=(p,base="")=>`<article class="card post">${p.series?`<p class="post__series">${p.series} · Part ${p.part}</p>`:""}<h3><a href="${postUrl(p,base)}">${p.title}</a></h3><p class="post__excerpt">${p.excerpt}</p><p class="post__foot"><a href="${postUrl(p,base)}">${p.url?"Read on LinkedIn":"Read post"}</a><span>${p.date}${p.minutes?` · ${p.minutes} min`:""}</span></p></article>`;

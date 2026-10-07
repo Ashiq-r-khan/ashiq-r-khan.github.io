@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Descriptive statistics for public health | Md. Ashiqur Rahman Khan</title>
+<meta name="description" content="How to summarise health data in a few correct numbers: counts and rates, mean and median, spread, percentiles, z-scores, correlation and Table 1, with worked public health examples.">
+<meta name="author" content="Md. Ashiqur Rahman Khan">
+<meta name="theme-color" content="#0f1722">
+<link rel="canonical" href="https://ashiq-r-khan.github.io/blog/descriptive-statistics.html">
+<meta property="og:title" content="Descriptive statistics for public health">
+<meta property="og:description" content="How to summarise health data in a few correct numbers: counts and rates, mean and median, spread, percentiles, z-scores, correlation and Table 1, with worked public health examples.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ashiq-r-khan.github.io/blog/descriptive-statistics.html">
+<meta property="og:image" content="https://ashiq-r-khan.github.io/assets/blog/descriptive-statistics.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2026-10-07">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../css/style.css?v=20261007a">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13h4M10 17h4"/></symbol>
+  </defs>
+</svg>
+<a class="skip" href="#post">Skip to the post</a>
+<header class="nav">
+  <div class="wrap nav__row">
+    <a class="nav__brand" href="../index.html">ashiqur.khan</a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><svg class="icon"><use href="#i-menu"/></svg></button>
+    <nav id="nav-links" aria-label="Sections">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#services">What I Can Do</a>
+      <a href="../index.html#certifications">Certifications</a>
+      <a href="index.html" aria-current="true">Blog</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap art" data-slug="descriptive-statistics">
+  <a class="pp__back" href="index.html"><svg class="icon"><use href="#i-back"/></svg>All posts</a>
+  <header class="art__head">
+    <p class="hero__role">Statistics for Public Health · Part 1 of 3</p>
+    <h1>Descriptive statistics for public health</h1>
+    <p class="pp__intro">How to summarise health data in a few numbers that are correct. Counts and rates, mean and median, spread, percentiles, z-scores, correlation, and the Table 1 that opens almost every paper.</p>
+    <p class="art__meta"><time datetime="2026-10-07">7 October 2026</time> · 26 min read</p>
+  </header>
+  <div class="art__grid">
+    <details class="toc" open><summary>On this page</summary><nav id="toc" aria-label="On this page"></nav></details>
+    <article id="post" class="body">
+<p>These are my study notes on the statistics a public health data analyst uses every day. They come in three parts: descriptive statistics (this post), <a href="probability-and-distributions.html">probability and distributions</a> and <a href="inferential-statistics.html">inferential statistics</a>.</p>
+<p>Every idea follows the same order: a definition in simple words, the formula, a worked example with the steps shown, and what it means for a public health decision. There is no code. Every calculation can be followed with a basic calculator.</p>
+<p>Descriptive statistics turns raw records into a small number of summaries that a person can read and act on. It makes no claim beyond the data in front of you. Every report, dashboard and research paper in public health starts here.</p>
+<h2 id="how-to-read">How to read these notes</h2>
+<p>Each example carries one of two labels.</p>
+<div class="table-wrap t-mid"><table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Real data</td>
+<td>The numbers come from a published source, listed under <a href="#sources">Sources</a> at the end. Examples: the 2023 dengue outbreak in Bangladesh, the Bangladesh Demographic and Health Survey 2022, the 1954 Salk polio vaccine trial.</td>
+</tr>
+<tr>
+<td>Illustrative numbers</td>
+<td>A realistic public health situation with made-up numbers chosen so the arithmetic is easy to follow. Do not quote these as facts.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Four kinds of box appear throughout. <strong>In simple words</strong> is the plain definition, so read it first. <strong>Example</strong> is a worked calculation or a real case. <strong>Common mistake</strong> is an error seen often in theses and reports. <strong>Remember</strong> is the one line to keep.</p>
+<h3>Symbols you will see</h3>
+<p>Statistics uses Greek letters for the population (the truth we cannot see) and Latin letters for the sample (the data we have).</p>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Population (parameter)</th>
+<th>Sample (statistic)</th>
+<th>How to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Size</td>
+<td>\(N\)</td>
+<td>\(n\)</td>
+<td>Number of people or units</td>
+</tr>
+<tr>
+<td>Mean</td>
+<td>\(\mu\) (mu)</td>
+<td>\(\bar{x}\) (x-bar)</td>
+<td>The average</td>
+</tr>
+<tr>
+<td>Standard deviation</td>
+<td>\(\sigma\) (sigma)</td>
+<td>\(s\)</td>
+<td>Typical distance from the mean</td>
+</tr>
+<tr>
+<td>Variance</td>
+<td>\(\sigma^2\)</td>
+<td>\(s^2\)</td>
+<td>Standard deviation squared</td>
+</tr>
+<tr>
+<td>Proportion</td>
+<td>\(p\) or \(\pi\)</td>
+<td>\(\hat{p}\) (p-hat)</td>
+<td>Share of people with the characteristic</td>
+</tr>
+<tr>
+<td>Correlation</td>
+<td>\(\rho\) (rho)</td>
+<td>\(r\)</td>
+<td>Strength of a straight-line relationship</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two more symbols come up often. \(\sum\) (capital sigma) means "add up all the values". \(\alpha\) (alpha) and \(\beta\) (beta) are error rates: the chance of a false alarm and the chance of a missed effect.</p>
+<h2 id="what">What descriptive statistics is</h2>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<p>Descriptive statistics means describing the data you have: how many, how much, how spread out, and what shape. It answers "what happened?" It does not answer "why?" or "will it happen again?"</p>
+</div>
+<p>A surveillance officer who receives 321,179 dengue records cannot read them one by one. Descriptive statistics lets the officer say: how many cases, in which months, in which age groups, in which districts, and how many died. In epidemiology this is called describing disease by <strong>person, place and time</strong>.</p>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What you summarise</th>
+<th>Public health example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Person</td>
+<td>Age, sex, occupation, education, wealth</td>
+<td>Which age group has the most dengue deaths?</td>
+</tr>
+<tr>
+<td>Place</td>
+<td>Division, district, urban or rural, ward</td>
+<td>Is stunting higher in Sylhet than in Khulna?</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>Day, week, month, year, season</td>
+<td>In which month do cases peak?</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="population-sample">Population, sample, parameter and statistic</h2>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<ul>
+<li><strong>Population</strong>: everyone you want to know about. Example: all children under 5 in Bangladesh.</li>
+<li><strong>Sample</strong>: the part of the population you actually measured. Example: the children measured in a survey.</li>
+<li><strong>Parameter</strong>: a true number about the population. It is usually unknown. Example: the true percentage of all under-5 children who are stunted.</li>
+<li><strong>Statistic</strong>: a number calculated from the sample. Example: 24% stunted among the children measured.</li>
+</ul>
+</div>
+<div class="box box--example">
+<p class="box__label">Real example <span class="box__tag">Real data</span></p>
+<p>The Bangladesh Demographic and Health Survey (BDHS) 2022 interviewed 30,018 households and 30,078 women aged 15 to 49. Nobody measured every child in the country. The published figure, 24% of under-5 children stunted, is a statistic from the sample that is used to estimate the parameter for the whole country. <a href="inferential-statistics.html">Part 3</a> explains how far a statistic can be trusted.</p>
+</div>
+<h2 id="variables">Types of variables</h2>
+<p>A variable is anything that differs from one person to the next: age, sex, blood pressure, vaccination status. The type of variable decides which summary, which chart and which statistical test you are allowed to use, so identify the type before anything else.</p>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning in simple words</th>
+<th>Public health examples</th>
+<th>Correct summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nominal</strong> (categorical)</td>
+<td>Named groups with no order</td>
+<td>Sex, blood group, division, cause of death</td>
+<td>Count and percentage, mode</td>
+</tr>
+<tr>
+<td><strong>Binary</strong> (a nominal variable with two groups)</td>
+<td>Yes or no</td>
+<td>Vaccinated or not, died or survived, test positive or negative</td>
+<td>Count and percentage</td>
+</tr>
+<tr>
+<td><strong>Ordinal</strong> (categorical)</td>
+<td>Groups with a natural order, but the gaps between groups are not equal</td>
+<td>Education level, wealth quintile, pain score, cancer stage</td>
+<td>Count and percentage, median</td>
+</tr>
+<tr>
+<td><strong>Discrete</strong> (numerical)</td>
+<td>Whole-number counts</td>
+<td>Number of children, number of clinic visits, number of cases per week</td>
+<td>Mean or median, with a spread; or rate</td>
+</tr>
+<tr>
+<td><strong>Continuous</strong> (numerical)</td>
+<td>Measured on a scale; any value is possible</td>
+<td>Weight, height, haemoglobin, blood pressure, age</td>
+<td>Mean and SD, or median and IQR</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two more labels are used in every analysis:</p>
+<ul>
+<li><strong>Outcome</strong> (dependent variable): the result you care about, such as having diabetes.</li>
+<li><strong>Exposure</strong> or <strong>predictor</strong> (independent variable): the thing that may influence the outcome, such as BMI or smoking.</li>
+</ul>
+<div class="box box--mistake">
+<p class="box__label">Common mistake</p>
+<p><strong>Codes are not numbers.</strong> If sex is stored as 1 = male and 2 = female, a "mean sex of 1.48" has no meaning. The same applies to division codes and to ordinal scales such as education level (1 to 5). A second mistake is cutting a continuous variable into groups too early, for example turning age into "young" and "old". Grouping throws away information. Keep the original values and group only for presentation.</p>
+</div>
+<h2 id="rates">Counts, proportions, ratios and rates</h2>
+<p>For a categorical variable the basic summary is a <strong>frequency table</strong>: each category, how many people fall in it, and what percentage that is. Public health then builds four kinds of number from counts. They are often confused, even in published reports.</p>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Meaning in simple words</th>
+<th>Formula</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proportion</strong></td>
+<td>A part divided by the whole. The top number is included in the bottom number. Always between 0 and 1.</td>
+<td>\(\dfrac{a}{a+b}\)</td>
+<td>Stunted children ÷ all children measured = 0.24</td>
+</tr>
+<tr>
+<td><strong>Percentage</strong></td>
+<td>A proportion multiplied by 100.</td>
+<td>\(\dfrac{a}{a+b}\times 100\)</td>
+<td>24% of under-5 children stunted (BDHS 2022)</td>
+</tr>
+<tr>
+<td><strong>Ratio</strong></td>
+<td>One number divided by a different number. The top is not part of the bottom.</td>
+<td>\(\dfrac{a}{b}\)</td>
+<td>Stunted to not stunted = 24 : 76, about 1 to 3.2</td>
+</tr>
+<tr>
+<td><strong>Rate</strong></td>
+<td>How fast events happen: events divided by the population at risk over a period of time.</td>
+<td>\(\dfrac{\text{events}}{\text{population}\times\text{time}}\times k\)</td>
+<td>Dengue cases per 100,000 people per year</td>
+</tr>
+</tbody>
+</table></div>
+<p>The multiplier \(k\) (100, 1,000 or 100,000) only makes small numbers readable. Use 100 for common events, 1,000 for births and deaths, and 100,000 for rarer diseases.</p>
+<div class="box box--example">
+<p class="box__label">Real example: dengue in Bangladesh, 2023 <span class="box__tag">Real data</span></p>
+<p>The Directorate General of Health Services (DGHS) recorded 321,179 hospitalised dengue cases and 1,705 deaths in 2023, the largest outbreak in the country's history.</p>
+<ul>
+<li><strong>Proportion (case fatality)</strong>: 1,705 ÷ 321,179 = 0.0053, or <strong>0.53%</strong>. Out of every 1,000 hospitalised patients, about 5 died. This is called the case fatality "rate" by habit, but it is a proportion, because the deaths are part of the cases.</li>
+<li><strong>Rate (incidence)</strong>: with a population of about 170 million (2022 census), 321,179 ÷ 170,000,000 × 100,000 ≈ <strong>189 hospitalised cases per 100,000 people in the year</strong>.</li>
+<li><strong>Percentage (seasonality)</strong>: 303,913 of the cases were recorded from July to November, which is <strong>94.6%</strong> of the year's total in five months.</li>
+</ul>
+<p>These three numbers already tell a health manager what to prepare (beds for a July to November surge) and how deadly the disease was among those admitted.</p>
+</div>
+<div class="box box--mistake">
+<p class="box__label">Common mistake</p>
+<p><strong>Comparing raw counts between places of different size.</strong> Dhaka will almost always have more cases than a small district simply because more people live there. Compare rates per population, not counts. Also state the denominator clearly: the 0.53% above is deaths among <em>hospitalised</em> cases. Mild cases that never reached a hospital are not counted, so the true fatality among all infections is lower.</p>
+</div>
+<div class="box box--own">
+<p class="box__label">From my own work</p>
+<p>I ran into this in my <a href="../project.html?p=dengue">dengue forecasting project</a>. In 2023 Dhaka division had 53.5% of all dengue hospital admissions in the country. Per 100,000 people it is Barishal that is hit hardest. It had the highest admission rate in three of the four years.</p>
+</div>
+<p>Some named public health indicators that follow these definitions:</p>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>How it is calculated</th>
+<th>Real value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Under-5 mortality rate</td>
+<td>Deaths before age 5 per 1,000 live births</td>
+<td>31 per 1,000 (BDHS 2022)</td>
+</tr>
+<tr>
+<td>Prevalence of stunting</td>
+<td>Stunted children ÷ children measured × 100</td>
+<td>24% (BDHS 2022)</td>
+</tr>
+<tr>
+<td>Caesarean section rate</td>
+<td>C-section births ÷ all births × 100</td>
+<td>45% (BDHS 2022)</td>
+</tr>
+<tr>
+<td>Case fatality</td>
+<td>Deaths from a disease ÷ cases of that disease × 100</td>
+<td>0.53% (dengue 2023, hospitalised)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="centre">Mean, median and mode</h2>
+<p>A measure of centre gives one "typical" value for a numerical variable.</p>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<ul>
+<li><strong>Mean</strong>: add all the values and divide by how many there are. It is the balance point of the data.</li>
+<li><strong>Median</strong>: put the values in order and take the middle one. Half the values are below it and half are above. With an even number of values, average the two middle ones.</li>
+<li><strong>Mode</strong>: the value that appears most often. It is the only measure of centre that works for nominal data.</li>
+</ul>
+</div>
+<p>\[\bar{x}=\frac{\sum x_i}{n}=\frac{x_1+x_2+\cdots+x_n}{n}\]</p>
+<div class="box box--example">
+<p class="box__label">Worked example: length of hospital stay <span class="box__tag">Illustrative numbers</span></p>
+<p>Ten dengue patients stayed in hospital for these numbers of days: 2, 2, 3, 3, 3, 4, 4, 5, 6, 28.</p>
+<ul>
+<li><strong>Mean</strong> = (2 + 2 + 3 + 3 + 3 + 4 + 4 + 5 + 6 + 28) ÷ 10 = 60 ÷ 10 = <strong>6.0 days</strong></li>
+<li><strong>Median</strong> = average of the 5th and 6th values = (3 + 4) ÷ 2 = <strong>3.5 days</strong></li>
+<li><strong>Mode</strong> = <strong>3 days</strong> (appears three times)</li>
+</ul>
+<p>Nine of the ten patients stayed 6 days or fewer, yet the mean is 6.0. One patient with a 28-day stay pulled the mean upward. The median, 3.5 days, describes the typical patient better. A hospital planning beds needs both: the median for the typical patient and the mean for total bed-days (mean × number of patients).</p>
+</div>
+<h3>Which one should you report?</h3>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Report</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numerical data, roughly symmetric, no extreme values</td>
+<td>Mean (with SD)</td>
+<td>Uses every value and works with most statistical tests</td>
+</tr>
+<tr>
+<td>Numerical data that is skewed or has outliers: income, length of stay, cost, incubation period, viral load</td>
+<td>Median (with IQR)</td>
+<td>Not pulled by extreme values</td>
+</tr>
+<tr>
+<td>Ordinal data: pain score, satisfaction, wealth quintile</td>
+<td>Median</td>
+<td>The gaps between categories are not equal, so a mean is not meaningful</td>
+</tr>
+<tr>
+<td>Nominal data: blood group, cause of death</td>
+<td>Mode, or the full percentage table</td>
+<td>Categories cannot be ordered or added</td>
+</tr>
+</tbody>
+</table></div>
+<figure class="fig" id="fig-1">
+<div class="fig__scroll"><svg viewBox="0 0 680 316" role="img" aria-label="Bar chart of monthly hospitalised dengue cases in Bangladesh in 2023 with the mean and median marked"><text x="66" y="288" text-anchor="end">0</text><line class="grid" x1="74" x2="664" y1="221.5" y2="221.5"/><text x="66" y="225.5" text-anchor="end">20,000</text><line class="grid" x1="74" x2="664" y1="159" y2="159"/><text x="66" y="163" text-anchor="end">40,000</text><line class="grid" x1="74" x2="664" y1="96.5" y2="96.5"/><text x="66" y="100.5" text-anchor="end">60,000</text><line class="grid" x1="74" x2="664" y1="34" y2="34"/><text x="66" y="38" text-anchor="end">80,000</text><line class="axis" x1="74" x2="664" y1="284" y2="284"/><path class="s1" d="M91 284 V284 Q91 282.2 92.8 282.2 H113.2 Q115 282.2 115 284 V284 Z"><title>Jan 2023: 566 cases</title></path><path class="s1" d="M139.4 284 V284 Q139.4 283.5 139.9 283.5 H162.9 Q163.4 283.5 163.4 284 V284 Z"><title>Feb 2023: 166 cases</title></path><path class="s1" d="M236.1 284 V284 Q236.1 283.6 236.5 283.6 H259.7 Q260.1 283.6 260.1 284 V284 Z"><title>Apr 2023: 143 cases</title></path><path class="s1" d="M284.5 284 V284 Q284.5 280.8 287.7 280.8 H305.2 Q308.5 280.8 308.5 284 V284 Z"><title>May 2023: 1,036 cases</title></path><path class="s1" d="M332.8 284 V269.4 Q332.8 265.4 336.8 265.4 H352.8 Q356.8 265.4 356.8 269.4 V284 Z"><title>Jun 2023: 5,956 cases</title></path><path class="s1" d="M381.2 284 V151 Q381.2 147 385.2 147 H401.2 Q405.2 147 405.2 151 V284 Z"><title>Jul 2023: 43,854 cases</title></path><text x="393.2" y="139" class="ann" text-anchor="middle">43,854</text><path class="s1" d="M429.5 284 V63.1 Q429.5 59.1 433.5 59.1 H449.5 Q453.5 59.1 453.5 63.1 V284 Z"><title>Aug 2023: 71,976 cases</title></path><text x="441.5" y="51.1" class="ann" text-anchor="middle">71,976</text><path class="s1" d="M477.9 284 V39.3 Q477.9 35.3 481.9 35.3 H497.9 Q501.9 35.3 501.9 39.3 V284 Z"><title>Sep 2023: 79,598 cases</title></path><text x="489.9" y="27.3" class="ann" text-anchor="middle">79,598</text><path class="s1" d="M526.3 284 V76.2 Q526.3 72.2 530.3 72.2 H546.3 Q550.3 72.2 550.3 76.2 V284 Z"><title>Oct 2023: 67,769 cases</title></path><text x="538.3" y="64.2" class="ann" text-anchor="middle">67,769</text><path class="s1" d="M574.6 284 V160.8 Q574.6 156.8 578.6 156.8 H594.6 Q598.6 156.8 598.6 160.8 V284 Z"><title>Nov 2023: 40,716 cases</title></path><text x="586.6" y="148.8" class="ann" text-anchor="middle">40,716</text><path class="s1" d="M623 284 V259 Q623 255 627 255 H643 Q647 255 647 259 V284 Z"><title>Dec 2023: 9,288 cases</title></path><text x="103" y="302" text-anchor="middle">Jan</text><text x="151.4" y="302" text-anchor="middle">Feb</text><text x="199.7" y="302" text-anchor="middle">Mar</text><text x="248.1" y="302" text-anchor="middle">Apr</text><text x="296.5" y="302" text-anchor="middle">May</text><text x="344.8" y="302" text-anchor="middle">Jun</text><text x="393.2" y="302" text-anchor="middle">Jul</text><text x="441.5" y="302" text-anchor="middle">Aug</text><text x="489.9" y="302" text-anchor="middle">Sep</text><text x="538.3" y="302" text-anchor="middle">Oct</text><text x="586.6" y="302" text-anchor="middle">Nov</text><text x="635" y="302" text-anchor="middle">Dec</text><line class="l2" x1="74" y1="200.4" x2="664" y2="200.4"/><text x="80" y="193.4" class="ann">Mean 26,765</text><line class="l3" x1="74" y1="260.2" x2="664" y2="260.2"/><text x="80" y="253.2" class="ann">Median 7,622</text><text transform="translate(16 159) rotate(-90)" text-anchor="middle">Hospitalised dengue cases</text></svg></div>
+<figcaption><strong>Figure 1. Monthly hospitalised dengue cases, Bangladesh, 2023 (real data, DGHS).</strong> The mean of the 12 months is 26,765 cases, but the median is only 7,622. Seven months lie below the mean. For data shaped like this, the mean describes almost no actual month. This bar chart of cases over time is called an epidemic curve.</figcaption>
+</figure>
+<h3>Two special means used in public health</h3>
+<p><strong>Weighted mean.</strong> When groups have different sizes, each group's value must count in proportion to its size.</p>
+<p>\[\bar{x}_w=\frac{\sum w_i x_i}{\sum w_i}\]</p>
+<div class="box box--example">
+<p class="box__label">Worked example: vaccination coverage <span class="box__tag">Illustrative numbers</span></p>
+<p>Three upazilas report measles vaccination coverage of 90%, 80% and 60%. Their child populations are 10,000, 30,000 and 60,000.</p>
+<ul>
+<li>Simple mean = (90 + 80 + 60) ÷ 3 = 76.7%. This is wrong for the district as a whole.</li>
+<li>Weighted mean = (0.90 × 10,000 + 0.80 × 30,000 + 0.60 × 60,000) ÷ 100,000 = 69,000 ÷ 100,000 = <strong>69%</strong>.</li>
+</ul>
+<p>The largest upazila has the lowest coverage, so the true district coverage is well below the simple average. National survey estimates such as BDHS are weighted means for the same reason.</p>
+</div>
+<p><strong>Geometric mean.</strong> Used when values multiply instead of add, or when they span several powers of ten: antibody titres, bacterial counts, viral load. Take the logarithm of each value, find the ordinary mean of the logs, then convert back.</p>
+<p>\[GM=\sqrt[n]{x_1\times x_2\times\cdots\times x_n}=10^{\,\text{mean of }\log_{10}(x_i)}\]</p>
+<div class="box box--example">
+<p class="box__label">Worked example: antibody titres <span class="box__tag">Illustrative numbers</span></p>
+<p>Five vaccinated people have antibody titres of 10, 20, 40, 80 and 640. The logs (base 10) are 1.000, 1.301, 1.602, 1.903 and 2.806. Their mean is 1.722, and \(10^{1.722}\) = <strong>52.8</strong>. The ordinary mean is 158, which is higher than four of the five values. The geometric mean titre (GMT) of 52.8 is the standard summary in vaccine studies.</p>
+</div>
+<h2 id="spread">Range, variance, standard deviation and IQR</h2>
+<p>Two districts can have the same mean blood pressure while one has everybody near the mean and the other has many very low and very high values. A measure of centre alone hides this. Always report a measure of spread with it.</p>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<ul>
+<li><strong>Range</strong>: largest value minus smallest value.</li>
+<li><strong>Variance</strong>: the average of the squared distances from the mean.</li>
+<li><strong>Standard deviation (SD)</strong>: the square root of the variance. It is the typical distance of a value from the mean, in the same unit as the data.</li>
+<li><strong>Interquartile range (IQR)</strong>: the width of the middle 50% of the data, from the 25th percentile (Q1) to the 75th percentile (Q3).</li>
+</ul>
+</div>
+<p>\[s^2=\frac{\sum(x_i-\bar{x})^2}{n-1}\qquad s=\sqrt{s^2}\qquad \text{IQR}=Q_3-Q_1\]</p>
+<div class="box box--example">
+<p class="box__label">Worked example: systolic blood pressure <span class="box__tag">Illustrative numbers</span></p>
+<p>Eight adults at a community clinic have systolic blood pressure (mmHg) of 110, 118, 122, 126, 130, 134, 140 and 160. The mean is 1,040 ÷ 8 = 130.</p>
+<div class="table-wrap t-dense"><table>
+<thead>
+<tr>
+<th>Value \(x\)</th>
+<th class="right">110</th>
+<th class="right">118</th>
+<th class="right">122</th>
+<th class="right">126</th>
+<th class="right">130</th>
+<th class="right">134</th>
+<th class="right">140</th>
+<th class="right">160</th>
+<th class="right">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Distance from mean \(x-\bar{x}\)</td>
+<td class="right">−20</td>
+<td class="right">−12</td>
+<td class="right">−8</td>
+<td class="right">−4</td>
+<td class="right">0</td>
+<td class="right">4</td>
+<td class="right">10</td>
+<td class="right">30</td>
+<td class="right">0</td>
+</tr>
+<tr>
+<td>Squared \((x-\bar{x})^2\)</td>
+<td class="right">400</td>
+<td class="right">144</td>
+<td class="right">64</td>
+<td class="right">16</td>
+<td class="right">0</td>
+<td class="right">16</td>
+<td class="right">100</td>
+<td class="right">900</td>
+<td class="right">1,640</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Range</strong> = 160 − 110 = 50 mmHg</li>
+<li><strong>Variance</strong> = 1,640 ÷ (8 − 1) = 234.3 mmHg²</li>
+<li><strong>SD</strong> = √234.3 = <strong>15.3 mmHg</strong></li>
+<li><strong>Quartiles</strong>: the lower half is 110, 118, 122, 126, so Q1 = (118 + 122) ÷ 2 = 120. The upper half is 130, 134, 140, 160, so Q3 = (134 + 140) ÷ 2 = 137. <strong>IQR</strong> = 137 − 120 = <strong>17 mmHg</strong>.</li>
+</ul>
+<p>In a report: "Mean systolic blood pressure was 130 mmHg (SD 15.3)."</p>
+</div>
+<h3>Why divide by n − 1 and not n?</h3>
+<p>The sample mean sits closer to the sample's own values than the true population mean does, so distances measured from it are a little too small. Dividing by \(n-1\) corrects this. The quantity \(n-1\) is called the <strong>degrees of freedom</strong>: once the mean is fixed, only \(n-1\) of the values are free to vary. For a full population (a census) you divide by \(N\).</p>
+<h3>How outliers affect each measure</h3>
+<p>Suppose the last patient's reading was 220 instead of 160.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th class="right">Original data (max 160)</th>
+<th class="right">With outlier (max 220)</th>
+<th>Affected?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean</td>
+<td class="right">130.0</td>
+<td class="right">137.5</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Standard deviation</td>
+<td class="right">15.3</td>
+<td class="right">34.6</td>
+<td>Yes, strongly</td>
+</tr>
+<tr>
+<td>Range</td>
+<td class="right">50</td>
+<td class="right">110</td>
+<td>Yes, strongly</td>
+</tr>
+<tr>
+<td>Median</td>
+<td class="right">128</td>
+<td class="right">128</td>
+<td>No</td>
+</tr>
+<tr>
+<td>IQR</td>
+<td class="right">17</td>
+<td class="right">17</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div>
+<div class="box box--remember">
+<p class="box__label">Remember</p>
+<p><strong>Mean goes with SD. Median goes with IQR.</strong> The mean and SD are sensitive to extreme values. The median and IQR are <em>robust</em>, which means extreme values barely move them.</p>
+</div>
+<h3>Coefficient of variation (CV)</h3>
+<p>The SD has units, so you cannot directly compare the spread of weight (kg) with the spread of haemoglobin (g/dL). The CV expresses the SD as a percentage of the mean, which removes the unit.</p>
+<p>\[CV=\frac{s}{\bar{x}}\times 100\%\]</p>
+<p>For the blood pressure data, CV = 15.3 ÷ 130 × 100 = 11.8%. For the 2023 monthly dengue counts the SD is 31,933 and the mean is 26,765, so CV = 119%. A CV above 100% says the data vary more than their own average, which is typical of outbreak data. Laboratories also use CV to check whether a test gives consistent results.</p>
+<h2 id="percentiles">Percentiles, quartiles and outliers</h2>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<p>The <strong>pth percentile</strong> is the value below which p% of the data fall. The 90th percentile of birth weight is the weight that 90% of babies are lighter than. <strong>Quartiles</strong> are three special percentiles: Q1 is the 25th, Q2 is the 50th (the median) and Q3 is the 75th.</p>
+</div>
+<div class="box box--example">
+<p class="box__label">Real example: COVID-19 quarantine length <span class="box__tag">Real data</span></p>
+<p>Lauer and colleagues (Annals of Internal Medicine, 2020) analysed 181 confirmed cases and estimated the incubation period of COVID-19, the time from infection to first symptoms.</p>
+<ul>
+<li>2.5th percentile: 2.2 days</li>
+<li>50th percentile (median): 5.1 days</li>
+<li>97.5th percentile: 11.5 days</li>
+</ul>
+<p>The policy question was "how long must an exposed person be quarantined?" The median cannot answer it, because half of infected people develop symptoms later than 5.1 days. The upper percentiles answer it. The authors estimated that after a 14-day quarantine only about 101 of every 10,000 infected people would develop symptoms later. This is how a percentile became the 14-day rule used worldwide.</p>
+</div>
+<p>The <strong>five-number summary</strong> is minimum, Q1, median, Q3, maximum. A <strong>box plot</strong> draws it: the box runs from Q1 to Q3, a line marks the median, and "whiskers" extend to the smallest and largest values that are not outliers.</p>
+<h3>The 1.5 × IQR rule for outliers</h3>
+<p>A value is flagged as a possible outlier if it lies below \(Q_1-1.5\times\text{IQR}\) or above \(Q_3+1.5\times\text{IQR}\). These two limits are called fences.</p>
+<div class="box box--example">
+<p class="box__label">Worked example: length of stay again <span class="box__tag">Illustrative numbers</span></p>
+<p>Data: 2, 2, 3, 3, 3, 4, 4, 5, 6, 28. Lower half 2, 2, 3, 3, 3 gives Q1 = 3. Upper half 4, 4, 5, 6, 28 gives Q3 = 5. IQR = 2.</p>
+<p>Lower fence = 3 − 1.5 × 2 = 0. Upper fence = 5 + 1.5 × 2 = 8. The 28-day stay is above 8, so it is flagged. Five-number summary: 2, 3, 3.5, 5, 28.</p>
+</div>
+<figure class="fig" id="fig-2">
+<div class="fig__scroll"><svg viewBox="0 0 680 200" role="img" aria-label="Box plot of ten hospital stays showing the box, whiskers, upper fence and one outlier at 28 days"><line class="axis" x1="40" y1="150" x2="650" y2="150"/><text x="40" y="168" text-anchor="middle">0</text><text x="141.7" y="168" text-anchor="middle">5</text><text x="243.3" y="168" text-anchor="middle">10</text><text x="345" y="168" text-anchor="middle">15</text><text x="446.7" y="168" text-anchor="middle">20</text><text x="548.3" y="168" text-anchor="middle">25</text><text x="650" y="168" text-anchor="middle">30</text><text x="345" y="192" text-anchor="middle">Length of hospital stay (days)</text><line class="l1" x1="80.7" y1="78" x2="101" y2="78"/><line class="l1" x1="141.7" y1="78" x2="162" y2="78"/><line class="l1" x1="80.7" y1="68" x2="80.7" y2="88"/><line class="l1" x1="162" y1="68" x2="162" y2="88"/><rect class="boxr" x="101" y="59.0" width="40.7" height="38" rx="2"/><line class="l1" x1="111.2" y1="59" x2="111.2" y2="97"/><line class="thr" x1="202.7" y1="30" x2="202.7" y2="134"/><text x="210.7" y="128">Upper fence = Q3 + 1.5 × IQR = 8</text><circle class="s2 ring" cx="609.3" cy="78" r="5"><title>Outlier: 28 days</title></circle><text x="609.3" y="44" class="ann" text-anchor="middle">Outlier: 28 days</text><line class="lead" x1="609.3" y1="50" x2="609.3" y2="68"/><text x="93" y="22" class="ann" text-anchor="end">Q1 = 3</text><line class="lead" x1="81" y1="28" x2="101" y2="56"/><text x="125.2" y="22" class="ann">Median = 3.5</text><line class="lead" x1="137.2" y1="28" x2="113.2" y2="56"/><text x="76.7" y="128" class="ann" text-anchor="end">Min = 2</text><line class="lead" x1="64.7" y1="114" x2="78.7" y2="92"/><text x="143.7" y="128" class="ann" text-anchor="middle">Q3 = 5</text><line class="lead" x1="143.7" y1="114" x2="141.7" y2="100"/><line class="lead" x1="168" y1="78" x2="216.7" y2="78"/><text x="222.7" y="82" class="ann">Whisker ends at 6, the largest value inside the fence</text></svg></div>
+<figcaption><strong>Figure 2. How to read a box plot,</strong> drawn from the length-of-stay example. The box holds the middle 50% of patients.</figcaption>
+</figure>
+<div class="box box--mistake">
+<p class="box__label">Common mistake</p>
+<p><strong>Deleting outliers automatically.</strong> An outlier is a flag to investigate, not an instruction to delete. First ask whether it is a data-entry error (a weight of 650 kg) or a real value (a 28-day stay for a patient with severe dengue). Errors are corrected or removed with a note. Real values stay in the data, and you use robust summaries such as the median. In outbreak detection the "outliers" are the signal you are looking for.</p>
+</div>
+<div class="box box--note">
+<p>A note on quartiles: there are several accepted ways to calculate quartiles in small samples. These notes split the data at the median and take the median of each half. R, Excel, SPSS and Python may each give slightly different quartiles for small data sets. With large data the differences disappear.</p>
+</div>
+<h2 id="shape">Skewness and kurtosis</h2>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<p>A <strong>distribution</strong> shows which values a variable takes and how often. Draw it as a histogram and look at the shape. <strong>Skewness</strong> measures whether one tail is longer than the other. <strong>Kurtosis</strong> measures how heavy the tails are, which means how often extreme values occur.</p>
+</div>
+<figure class="fig" id="fig-3">
+<div class="fig__scroll"><svg viewBox="0 0 680 238" role="img" aria-label="Three density curves: symmetric, right-skewed and left-skewed, each with its mean and median marked"><text x="10" y="18" class="ttl">Symmetric</text><text x="110" y="46" text-anchor="middle">Mean = Median</text><path class="a1" d="M10 191.8 L11.8 191.7 L13.7 191.6 L15.5 191.5 L17.3 191.4 L19.2 191.3 L21 191.1 L22.8 190.9 L24.7 190.7 L26.5 190.4 L28.3 190.1 L30.2 189.7 L32 189.2 L33.9 188.7 L35.7 188.1 L37.5 187.3 L39.4 186.5 L41.2 185.5 L43 184.4 L44.9 183.2 L46.7 181.8 L48.5 180.2 L50.4 178.4 L52.2 176.4 L54 174.2 L55.9 171.8 L57.7 169.2 L59.5 166.3 L61.4 163.2 L63.2 159.9 L65 156.3 L66.9 152.4 L68.7 148.4 L70.6 144.1 L72.4 139.7 L74.2 135 L76.1 130.3 L77.9 125.4 L79.7 120.4 L81.6 115.4 L83.4 110.3 L85.2 105.3 L87.1 100.4 L88.9 95.7 L90.7 91.1 L92.6 86.7 L94.4 82.6 L96.2 78.8 L98.1 75.4 L99.9 72.4 L101.7 69.8 L103.6 67.7 L105.4 66.2 L107.2 65.1 L109.1 64.5 L110.9 64.5 L112.8 65.1 L114.6 66.2 L116.4 67.7 L118.3 69.8 L120.1 72.4 L121.9 75.4 L123.8 78.8 L125.6 82.6 L127.4 86.7 L129.3 91.1 L131.1 95.7 L132.9 100.4 L134.8 105.3 L136.6 110.3 L138.4 115.4 L140.3 120.4 L142.1 125.4 L143.9 130.3 L145.8 135 L147.6 139.7 L149.4 144.1 L151.3 148.4 L153.1 152.4 L155 156.3 L156.8 159.9 L158.6 163.2 L160.5 166.3 L162.3 169.2 L164.1 171.8 L166 174.2 L167.8 176.4 L169.6 178.4 L171.5 180.2 L173.3 181.8 L175.1 183.2 L177 184.4 L178.8 185.5 L180.6 186.5 L182.5 187.3 L184.3 188.1 L186.1 188.7 L188 189.2 L189.8 189.7 L191.7 190.1 L193.5 190.4 L195.3 190.7 L197.2 190.9 L199 191.1 L200.8 191.3 L202.7 191.4 L204.5 191.5 L206.3 191.6 L208.2 191.7 L210 191.8 L210 192 L10 192 Z"/><path class="l1" d="M10 191.8 L11.8 191.7 L13.7 191.6 L15.5 191.5 L17.3 191.4 L19.2 191.3 L21 191.1 L22.8 190.9 L24.7 190.7 L26.5 190.4 L28.3 190.1 L30.2 189.7 L32 189.2 L33.9 188.7 L35.7 188.1 L37.5 187.3 L39.4 186.5 L41.2 185.5 L43 184.4 L44.9 183.2 L46.7 181.8 L48.5 180.2 L50.4 178.4 L52.2 176.4 L54 174.2 L55.9 171.8 L57.7 169.2 L59.5 166.3 L61.4 163.2 L63.2 159.9 L65 156.3 L66.9 152.4 L68.7 148.4 L70.6 144.1 L72.4 139.7 L74.2 135 L76.1 130.3 L77.9 125.4 L79.7 120.4 L81.6 115.4 L83.4 110.3 L85.2 105.3 L87.1 100.4 L88.9 95.7 L90.7 91.1 L92.6 86.7 L94.4 82.6 L96.2 78.8 L98.1 75.4 L99.9 72.4 L101.7 69.8 L103.6 67.7 L105.4 66.2 L107.2 65.1 L109.1 64.5 L110.9 64.5 L112.8 65.1 L114.6 66.2 L116.4 67.7 L118.3 69.8 L120.1 72.4 L121.9 75.4 L123.8 78.8 L125.6 82.6 L127.4 86.7 L129.3 91.1 L131.1 95.7 L132.9 100.4 L134.8 105.3 L136.6 110.3 L138.4 115.4 L140.3 120.4 L142.1 125.4 L143.9 130.3 L145.8 135 L147.6 139.7 L149.4 144.1 L151.3 148.4 L153.1 152.4 L155 156.3 L156.8 159.9 L158.6 163.2 L160.5 166.3 L162.3 169.2 L164.1 171.8 L166 174.2 L167.8 176.4 L169.6 178.4 L171.5 180.2 L173.3 181.8 L175.1 183.2 L177 184.4 L178.8 185.5 L180.6 186.5 L182.5 187.3 L184.3 188.1 L186.1 188.7 L188 189.2 L189.8 189.7 L191.7 190.1 L193.5 190.4 L195.3 190.7 L197.2 190.9 L199 191.1 L200.8 191.3 L202.7 191.4 L204.5 191.5 L206.3 191.6 L208.2 191.7 L210 191.8"/><line class="l2" x1="110" y1="64.5" x2="110" y2="192"/><line class="l3" x1="110" y1="64.5" x2="110" y2="192"/><line class="axis" x1="10" x2="210" y1="192" y2="192"/><text x="240" y="18" class="ttl">Right-skewed (positive)</text><text x="340" y="46" text-anchor="middle">Mean &gt; Median</text><path class="a1" d="M240 192 L241.8 191.9 L243.7 190.1 L245.5 183.3 L247.3 171.2 L249.2 155.8 L251 139.1 L252.8 122.8 L254.7 108.1 L256.5 95.5 L258.3 85.3 L260.2 77.3 L262 71.5 L263.9 67.6 L265.7 65.4 L267.5 64.5 L269.4 64.9 L271.2 66.2 L273 68.3 L274.9 70.9 L276.7 74.1 L278.5 77.5 L280.4 81.3 L282.2 85.1 L284 89.1 L285.9 93.1 L287.7 97.2 L289.5 101.1 L291.4 105.1 L293.2 108.9 L295 112.6 L296.9 116.3 L298.7 119.8 L300.6 123.1 L302.4 126.4 L304.2 129.5 L306.1 132.5 L307.9 135.3 L309.7 138 L311.6 140.6 L313.4 143.1 L315.2 145.5 L317.1 147.7 L318.9 149.9 L320.7 151.9 L322.6 153.8 L324.4 155.7 L326.2 157.4 L328.1 159.1 L329.9 160.6 L331.7 162.1 L333.6 163.5 L335.4 164.9 L337.2 166.2 L339.1 167.4 L340.9 168.5 L342.8 169.6 L344.6 170.7 L346.4 171.6 L348.3 172.6 L350.1 173.5 L351.9 174.3 L353.8 175.1 L355.6 175.9 L357.4 176.6 L359.3 177.3 L361.1 177.9 L362.9 178.6 L364.8 179.2 L366.6 179.7 L368.4 180.3 L370.3 180.8 L372.1 181.3 L373.9 181.7 L375.8 182.2 L377.6 182.6 L379.4 183 L381.3 183.4 L383.1 183.7 L385 184.1 L386.8 184.4 L388.6 184.7 L390.5 185 L392.3 185.3 L394.1 185.6 L396 185.8 L397.8 186.1 L399.6 186.3 L401.5 186.5 L403.3 186.8 L405.1 187 L407 187.2 L408.8 187.4 L410.6 187.5 L412.5 187.7 L414.3 187.9 L416.1 188 L418 188.2 L419.8 188.3 L421.7 188.5 L423.5 188.6 L425.3 188.7 L427.2 188.9 L429 189 L430.8 189.1 L432.7 189.2 L434.5 189.3 L436.3 189.4 L438.2 189.5 L440 189.6 L440 192 L240 192 Z"/><path class="l1" d="M240 192 L241.8 191.9 L243.7 190.1 L245.5 183.3 L247.3 171.2 L249.2 155.8 L251 139.1 L252.8 122.8 L254.7 108.1 L256.5 95.5 L258.3 85.3 L260.2 77.3 L262 71.5 L263.9 67.6 L265.7 65.4 L267.5 64.5 L269.4 64.9 L271.2 66.2 L273 68.3 L274.9 70.9 L276.7 74.1 L278.5 77.5 L280.4 81.3 L282.2 85.1 L284 89.1 L285.9 93.1 L287.7 97.2 L289.5 101.1 L291.4 105.1 L293.2 108.9 L295 112.6 L296.9 116.3 L298.7 119.8 L300.6 123.1 L302.4 126.4 L304.2 129.5 L306.1 132.5 L307.9 135.3 L309.7 138 L311.6 140.6 L313.4 143.1 L315.2 145.5 L317.1 147.7 L318.9 149.9 L320.7 151.9 L322.6 153.8 L324.4 155.7 L326.2 157.4 L328.1 159.1 L329.9 160.6 L331.7 162.1 L333.6 163.5 L335.4 164.9 L337.2 166.2 L339.1 167.4 L340.9 168.5 L342.8 169.6 L344.6 170.7 L346.4 171.6 L348.3 172.6 L350.1 173.5 L351.9 174.3 L353.8 175.1 L355.6 175.9 L357.4 176.6 L359.3 177.3 L361.1 177.9 L362.9 178.6 L364.8 179.2 L366.6 179.7 L368.4 180.3 L370.3 180.8 L372.1 181.3 L373.9 181.7 L375.8 182.2 L377.6 182.6 L379.4 183 L381.3 183.4 L383.1 183.7 L385 184.1 L386.8 184.4 L388.6 184.7 L390.5 185 L392.3 185.3 L394.1 185.6 L396 185.8 L397.8 186.1 L399.6 186.3 L401.5 186.5 L403.3 186.8 L405.1 187 L407 187.2 L408.8 187.4 L410.6 187.5 L412.5 187.7 L414.3 187.9 L416.1 188 L418 188.2 L419.8 188.3 L421.7 188.5 L423.5 188.6 L425.3 188.7 L427.2 188.9 L429 189 L430.8 189.1 L432.7 189.2 L434.5 189.3 L436.3 189.4 L438.2 189.5 L440 189.6"/><line class="l2" x1="298.1" y1="118.5" x2="298.1" y2="192"/><line class="l3" x1="285.5" y1="92.2" x2="285.5" y2="192"/><line class="axis" x1="240" x2="440" y1="192" y2="192"/><text x="436" y="128" text-anchor="end">long tail to</text><text x="436" y="144" text-anchor="end">the right</text><text x="470" y="18" class="ttl">Left-skewed (negative)</text><text x="570" y="46" text-anchor="middle">Mean &lt; Median</text><path class="a1" d="M470 189.6 L471.8 189.5 L473.7 189.4 L475.5 189.3 L477.3 189.2 L479.2 189.1 L481 189 L482.8 188.9 L484.7 188.7 L486.5 188.6 L488.3 188.5 L490.2 188.3 L492 188.2 L493.9 188 L495.7 187.9 L497.5 187.7 L499.4 187.5 L501.2 187.4 L503 187.2 L504.9 187 L506.7 186.8 L508.5 186.5 L510.4 186.3 L512.2 186.1 L514 185.8 L515.9 185.6 L517.7 185.3 L519.5 185 L521.4 184.7 L523.2 184.4 L525 184.1 L526.9 183.7 L528.7 183.4 L530.6 183 L532.4 182.6 L534.2 182.2 L536.1 181.7 L537.9 181.3 L539.7 180.8 L541.6 180.3 L543.4 179.7 L545.2 179.2 L547.1 178.6 L548.9 177.9 L550.7 177.3 L552.6 176.6 L554.4 175.9 L556.2 175.1 L558.1 174.3 L559.9 173.5 L561.7 172.6 L563.6 171.6 L565.4 170.7 L567.2 169.6 L569.1 168.5 L570.9 167.4 L572.8 166.2 L574.6 164.9 L576.4 163.5 L578.3 162.1 L580.1 160.6 L581.9 159.1 L583.8 157.4 L585.6 155.7 L587.4 153.8 L589.3 151.9 L591.1 149.9 L592.9 147.7 L594.8 145.5 L596.6 143.1 L598.4 140.6 L600.3 138 L602.1 135.3 L603.9 132.5 L605.8 129.5 L607.6 126.4 L609.4 123.1 L611.3 119.8 L613.1 116.3 L615 112.6 L616.8 108.9 L618.6 105.1 L620.5 101.1 L622.3 97.2 L624.1 93.1 L626 89.1 L627.8 85.1 L629.6 81.3 L631.5 77.5 L633.3 74.1 L635.1 70.9 L637 68.3 L638.8 66.2 L640.6 64.9 L642.5 64.5 L644.3 65.4 L646.1 67.6 L648 71.5 L649.8 77.3 L651.7 85.3 L653.5 95.5 L655.3 108.1 L657.2 122.8 L659 139.1 L660.8 155.8 L662.7 171.2 L664.5 183.3 L666.3 190.1 L668.2 191.9 L670 192 L670 192 L470 192 Z"/><path class="l1" d="M470 189.6 L471.8 189.5 L473.7 189.4 L475.5 189.3 L477.3 189.2 L479.2 189.1 L481 189 L482.8 188.9 L484.7 188.7 L486.5 188.6 L488.3 188.5 L490.2 188.3 L492 188.2 L493.9 188 L495.7 187.9 L497.5 187.7 L499.4 187.5 L501.2 187.4 L503 187.2 L504.9 187 L506.7 186.8 L508.5 186.5 L510.4 186.3 L512.2 186.1 L514 185.8 L515.9 185.6 L517.7 185.3 L519.5 185 L521.4 184.7 L523.2 184.4 L525 184.1 L526.9 183.7 L528.7 183.4 L530.6 183 L532.4 182.6 L534.2 182.2 L536.1 181.7 L537.9 181.3 L539.7 180.8 L541.6 180.3 L543.4 179.7 L545.2 179.2 L547.1 178.6 L548.9 177.9 L550.7 177.3 L552.6 176.6 L554.4 175.9 L556.2 175.1 L558.1 174.3 L559.9 173.5 L561.7 172.6 L563.6 171.6 L565.4 170.7 L567.2 169.6 L569.1 168.5 L570.9 167.4 L572.8 166.2 L574.6 164.9 L576.4 163.5 L578.3 162.1 L580.1 160.6 L581.9 159.1 L583.8 157.4 L585.6 155.7 L587.4 153.8 L589.3 151.9 L591.1 149.9 L592.9 147.7 L594.8 145.5 L596.6 143.1 L598.4 140.6 L600.3 138 L602.1 135.3 L603.9 132.5 L605.8 129.5 L607.6 126.4 L609.4 123.1 L611.3 119.8 L613.1 116.3 L615 112.6 L616.8 108.9 L618.6 105.1 L620.5 101.1 L622.3 97.2 L624.1 93.1 L626 89.1 L627.8 85.1 L629.6 81.3 L631.5 77.5 L633.3 74.1 L635.1 70.9 L637 68.3 L638.8 66.2 L640.6 64.9 L642.5 64.5 L644.3 65.4 L646.1 67.6 L648 71.5 L649.8 77.3 L651.7 85.3 L653.5 95.5 L655.3 108.1 L657.2 122.8 L659 139.1 L660.8 155.8 L662.7 171.2 L664.5 183.3 L666.3 190.1 L668.2 191.9 L670 192"/><line class="l2" x1="611.9" y1="118.5" x2="611.9" y2="192"/><line class="l3" x1="624.5" y1="92.2" x2="624.5" y2="192"/><line class="axis" x1="470" x2="670" y1="192" y2="192"/><text x="474" y="128">long tail to</text><text x="474" y="144">the left</text><line class="l2" x1="250" y1="222" x2="276" y2="222"/><text x="284" y="226" class="ann">Mean</text><line class="l3" x1="360" y1="222" x2="386" y2="222"/><text x="394" y="226" class="ann">Median</text></svg></div>
+<figcaption><strong>Figure 3. Three common shapes.</strong> The mean is pulled toward the long tail. The median stays near the bulk of the data.</figcaption>
+</figure>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Mean and median</th>
+<th>Typical public health variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symmetric</td>
+<td>Mean ≈ median</td>
+<td>Adult height, haemoglobin, blood pressure in a general population, birth weight of term babies</td>
+</tr>
+<tr>
+<td>Right-skewed (positive skew)</td>
+<td>Mean &gt; median</td>
+<td>Income, health expenditure, length of hospital stay, incubation period, number of clinic visits, antibody titre, parasite count</td>
+</tr>
+<tr>
+<td>Left-skewed (negative skew)</td>
+<td>Mean &lt; median</td>
+<td>Age at death in a high-income country, gestational age at birth</td>
+</tr>
+</tbody>
+</table></div>
+<p>Most health-care data are right-skewed, because values cannot go below zero but can be very large. Other shape words you will meet:</p>
+<ul>
+<li><strong>Unimodal</strong> means one peak. <strong>Bimodal</strong> means two peaks, which often signals two different groups mixed together, for example an outbreak that hits young children and elderly people but not adults in between.</li>
+<li><strong>Skewness value</strong>: 0 means symmetric. As a rough guide, between −0.5 and 0.5 is nearly symmetric, and beyond −1 or 1 is strongly skewed.</li>
+<li><strong>Kurtosis value</strong>: a normal distribution has kurtosis 3. Software usually reports "excess kurtosis", which is kurtosis minus 3, so 0 means normal-like tails and a positive value means heavier tails and more outliers.</li>
+</ul>
+<div class="box box--remember">
+<p class="box__label">Remember</p>
+<p>Always draw a histogram before calculating anything. If the mean and median are far apart, the data are skewed: report the median and IQR, and think about a log transformation or a non-parametric test later.</p>
+</div>
+<h2 id="z-score">The z-score</h2>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<p>A <strong>z-score</strong> tells you how many standard deviations a value is above or below the mean. A z-score of 0 is exactly average. A z-score of −2 is two SDs below average.</p>
+</div>
+<p>\[z=\frac{x-\mu}{\sigma}\]</p>
+<p>Converting to z-scores is called <strong>standardising</strong>. It puts different measurements on one common scale, so a child's height and weight can be compared with a reference population of the same age and sex.</p>
+<div class="box box--example">
+<p class="box__label">Real example: how stunting is defined <span class="box__tag">Real data</span></p>
+<p>The World Health Organization (WHO) Child Growth Standards give, for every age and sex, the median height of healthy children and the SD. For boys aged 24 months the median length is 87.8 cm and the SD is about 3.06 cm.</p>
+<p>A 24-month-old boy who measures 80.5 cm has a height-for-age z-score of</p>
+<p>\[z=\frac{80.5-87.8}{3.06}=-2.39\]</p>
+<p>WHO defines a child as <strong>stunted</strong> when the height-for-age z-score is below −2, and severely stunted below −3. This boy is stunted. The same idea gives <strong>wasting</strong> (weight-for-height z-score below −2) and <strong>underweight</strong> (weight-for-age z-score below −2).</p>
+<p>In a healthy reference population only about 2.3% of children fall below −2. BDHS 2022 found 24% of Bangladeshi under-5 children below −2 for height, about ten times the expected share. Wasting was 11% and underweight 22%.</p>
+</div>
+<figure class="fig" id="fig-4">
+<div class="fig__scroll"><svg viewBox="0 0 680 308" role="img" aria-label="Two normal curves of height-for-age z-scores: the WHO reference population and a population shifted left so that 24% fall below minus 2"><path class="a2" d="M20 260 L24.6 260 L29.2 259.9 L33.8 259.9 L38.4 259.9 L43 259.9 L47.6 259.8 L52.2 259.8 L56.8 259.7 L61.4 259.6 L66 259.5 L70.6 259.4 L75.3 259.2 L79.9 259 L84.5 258.7 L89.1 258.4 L93.7 258 L98.3 257.6 L102.9 257 L107.5 256.3 L112.1 255.5 L116.7 254.5 L121.3 253.3 L125.9 251.9 L130.5 250.3 L135.1 248.5 L139.7 246.3 L144.3 243.9 L148.9 241.1 L153.5 237.9 L158.1 234.3 L162.7 230.3 L167.3 225.9 L171.9 221 L176.5 215.6 L181.2 209.8 L185.8 203.4 L190.4 196.6 L195 189.3 L199.6 181.6 L204.2 173.5 L208.8 165.1 L213.4 156.4 L218 147.5 L222.6 138.4 L227.2 129.3 L231.8 120.2 L236.4 111.3 L241 102.6 L241 260 L20 260 Z"/><path class="a1s" d="M20 260 L24.6 260 L29.2 260 L33.8 260 L38.4 260 L43 260 L47.6 260 L52.2 260 L56.8 260 L61.4 260 L66 260 L70.6 260 L75.3 260 L79.9 260 L84.5 260 L89.1 260 L93.7 260 L98.3 260 L102.9 260 L107.5 260 L112.1 259.9 L116.7 259.9 L121.3 259.9 L125.9 259.9 L130.5 259.8 L135.1 259.8 L139.7 259.7 L144.3 259.6 L148.9 259.5 L153.5 259.4 L158.1 259.2 L162.7 259 L167.3 258.7 L171.9 258.4 L176.5 258 L181.2 257.6 L185.8 257 L190.4 256.3 L195 255.4 L199.6 254.5 L204.2 253.3 L208.8 251.9 L213.4 250.3 L218 248.5 L222.6 246.3 L227.2 243.8 L231.8 241 L236.4 237.9 L241 234.3 L241 260 L20 260 Z"/><path class="l2" d="M20 260 L24.6 260 L29.2 259.9 L33.8 259.9 L38.4 259.9 L43 259.9 L47.6 259.8 L52.2 259.8 L56.8 259.7 L61.4 259.6 L66 259.5 L70.6 259.4 L75.3 259.2 L79.9 259 L84.5 258.7 L89.1 258.4 L93.7 258 L98.3 257.6 L102.9 257 L107.5 256.3 L112.1 255.5 L116.7 254.5 L121.3 253.3 L125.9 251.9 L130.5 250.3 L135.1 248.5 L139.7 246.3 L144.3 243.9 L148.9 241.1 L153.5 237.9 L158.1 234.3 L162.7 230.3 L167.3 225.9 L171.9 221 L176.5 215.6 L181.2 209.8 L185.8 203.4 L190.4 196.6 L195 189.3 L199.6 181.6 L204.2 173.5 L208.8 165.1 L213.4 156.4 L218 147.5 L222.6 138.4 L227.2 129.3 L231.8 120.2 L236.4 111.3 L241 102.6 L245.6 94.3 L250.2 86.4 L254.8 79.1 L259.4 72.5 L264 66.6 L268.6 61.5 L273.2 57.4 L277.8 54.3 L282.4 52.2 L287.1 51.1 L291.7 51.2 L296.3 52.3 L300.9 54.5 L305.5 57.7 L310.1 61.8 L314.7 66.9 L319.3 72.9 L323.9 79.6 L328.5 86.9 L333.1 94.8 L337.7 103.2 L342.3 111.9 L346.9 120.8 L351.5 129.9 L356.1 139 L360.7 148.1 L365.3 157 L369.9 165.7 L374.5 174.1 L379.1 182.1 L383.7 189.8 L388.3 197 L392.9 203.8 L397.6 210.1 L402.2 216 L406.8 221.3 L411.4 226.2 L416 230.6 L420.6 234.6 L425.2 238.1 L429.8 241.3 L434.4 244.1 L439 246.5 L443.6 248.6 L448.2 250.5 L452.8 252 L457.4 253.4 L462 254.5 L466.6 255.5 L471.2 256.3 L475.8 257 L480.4 257.6 L485 258.1 L489.6 258.5 L494.2 258.8 L498.8 259 L503.5 259.2 L508.1 259.4 L512.7 259.5 L517.3 259.6 L521.9 259.7 L526.5 259.8 L531.1 259.8 L535.7 259.9 L540.3 259.9 L544.9 259.9 L549.5 259.9 L554.1 260 L558.7 260 L563.3 260 L567.9 260 L572.5 260 L577.1 260 L581.7 260 L586.3 260 L590.9 260 L595.5 260 L600.1 260 L604.7 260 L609.4 260 L614 260 L618.6 260 L623.2 260 L627.8 260 L632.4 260 L637 260 L641.6 260 L646.2 260 L650.8 260 L655.4 260 L660 260"/><path class="l1" d="M20 260 L24.6 260 L29.2 260 L33.8 260 L38.4 260 L43 260 L47.6 260 L52.2 260 L56.8 260 L61.4 260 L66 260 L70.6 260 L75.3 260 L79.9 260 L84.5 260 L89.1 260 L93.7 260 L98.3 260 L102.9 260 L107.5 260 L112.1 259.9 L116.7 259.9 L121.3 259.9 L125.9 259.9 L130.5 259.8 L135.1 259.8 L139.7 259.7 L144.3 259.6 L148.9 259.5 L153.5 259.4 L158.1 259.2 L162.7 259 L167.3 258.7 L171.9 258.4 L176.5 258 L181.2 257.6 L185.8 257 L190.4 256.3 L195 255.4 L199.6 254.5 L204.2 253.3 L208.8 251.9 L213.4 250.3 L218 248.5 L222.6 246.3 L227.2 243.8 L231.8 241 L236.4 237.9 L241 234.3 L245.6 230.3 L250.2 225.8 L254.8 220.9 L259.4 215.5 L264 209.6 L268.6 203.3 L273.2 196.5 L277.8 189.2 L282.4 181.5 L287.1 173.4 L291.7 165 L296.3 156.3 L300.9 147.3 L305.5 138.3 L310.1 129.2 L314.7 120.1 L319.3 111.2 L323.9 102.5 L328.5 94.1 L333.1 86.3 L337.7 79 L342.3 72.4 L346.9 66.5 L351.5 61.5 L356.1 57.4 L360.7 54.3 L365.3 52.2 L369.9 51.1 L374.5 51.2 L379.1 52.3 L383.7 54.5 L388.3 57.7 L392.9 61.9 L397.6 67 L402.2 73 L406.8 79.7 L411.4 87 L416 95 L420.6 103.3 L425.2 112 L429.8 121 L434.4 130.1 L439 139.2 L443.6 148.2 L448.2 157.1 L452.8 165.8 L457.4 174.2 L462 182.3 L466.6 189.9 L471.2 197.2 L475.8 203.9 L480.4 210.3 L485 216.1 L489.6 221.4 L494.2 226.3 L498.8 230.7 L503.5 234.6 L508.1 238.2 L512.7 241.3 L517.3 244.1 L521.9 246.5 L526.5 248.6 L531.1 250.5 L535.7 252.1 L540.3 253.4 L544.9 254.6 L549.5 255.5 L554.1 256.4 L558.7 257 L563.3 257.6 L567.9 258.1 L572.5 258.5 L577.1 258.8 L581.7 259 L586.3 259.2 L590.9 259.4 L595.5 259.5 L600.1 259.6 L604.7 259.7 L609.4 259.8 L614 259.8 L618.6 259.9 L623.2 259.9 L627.8 259.9 L632.4 259.9 L637 260 L641.6 260 L646.2 260 L650.8 260 L655.4 260 L660 260"/><line class="mark" x1="244" y1="30" x2="244" y2="260"/><text x="236" y="24" class="ann" text-anchor="end">Cut-off: z = −2</text><line class="axis" x1="20" x2="660" y1="260" y2="260"/><text x="52" y="278" text-anchor="middle">−5</text><text x="116" y="278" text-anchor="middle">−4</text><text x="180" y="278" text-anchor="middle">−3</text><text x="244" y="278" text-anchor="middle">−2</text><text x="308" y="278" text-anchor="middle">−1</text><text x="372" y="278" text-anchor="middle">0</text><text x="436" y="278" text-anchor="middle">1</text><text x="500" y="278" text-anchor="middle">2</text><text x="564" y="278" text-anchor="middle">3</text><text x="628" y="278" text-anchor="middle">4</text><text x="340" y="300" text-anchor="middle">Height-for-age z-score</text><text x="26.4" y="70" class="ann">A population where 24% of</text><text x="26.4" y="87" class="ann">children fall below −2</text><text x="26.4" y="104" class="ann">(whole curve shifted left)</text><text x="452" y="70" class="ann">WHO reference population</text><text x="452" y="87" class="ann">2.3% below −2</text></svg></div>
+<figcaption><strong>Figure 4. Why 24% stunting is a population problem.</strong> The orange curve is an illustration of a population in which 24% of children fall below the cut-off: the whole distribution has moved left, not only its tail.</figcaption>
+</figure>
+<p>Other uses of z-scores: comparing a laboratory result with a reference range, finding unusual values (a z-score beyond ±3 is rare), and comparing results measured on different scales.</p>
+<h2 id="relationships">Relationships between two variables</h2>
+<h3>Two categorical variables: the cross-tabulation</h3>
+<p>A cross-tabulation (contingency table) counts people in every combination of two categorical variables. The most important one in public health is the <strong>2 × 2 table</strong> of exposure by outcome. Always calculate percentages within each exposure group (row percentages), so the groups can be compared fairly.</p>
+<div class="box box--example">
+<p class="box__label">Real example: the 1954 Salk polio vaccine trial <span class="box__tag">Real data</span></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Group</th>
+<th class="right">Children</th>
+<th class="right">Polio cases</th>
+<th class="right">Cases per 100,000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vaccine</td>
+<td class="right">200,745</td>
+<td class="right">57</td>
+<td class="right">28.4</td>
+</tr>
+<tr>
+<td>Placebo</td>
+<td class="right">201,229</td>
+<td class="right">142</td>
+<td class="right">70.6</td>
+</tr>
+</tbody>
+</table></div>
+<p>The counts 57 and 142 look small next to 200,000. The rates per 100,000 make the comparison clear: the placebo group had about 2.5 times the polio rate of the vaccine group. <a href="inferential-statistics.html#chi-square">Part 3</a> tests whether a difference this large could be due to chance.</p>
+</div>
+<h3>Two numerical variables: covariance and correlation</h3>
+<div class="box box--simple">
+<p class="box__label">In simple words</p>
+<ul>
+<li><strong>Covariance</strong> shows the direction in which two variables move together. Positive: when one is high the other tends to be high. Negative: when one is high the other tends to be low. Its size depends on the units, so it is hard to interpret.</li>
+<li><strong>Correlation</strong> (Pearson's r) is covariance with the units removed. It always lies between −1 and +1 and measures how closely the points follow a straight line.</li>
+</ul>
+</div>
+<p>\[\text{cov}(x,y)=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{n-1}\qquad r=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum(x_i-\bar{x})^2\,\sum(y_i-\bar{y})^2}}\]</p>
+<div class="box box--example">
+<p class="box__label">Worked example: age and blood pressure <span class="box__tag">Illustrative numbers</span></p>
+<p>Five adults: ages 30, 40, 50, 60, 70 and systolic blood pressure 118, 124, 130, 140, 148. Mean age is 50 and mean blood pressure is 132.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Age \(x\)</th>
+<th class="right">30</th>
+<th class="right">40</th>
+<th class="right">50</th>
+<th class="right">60</th>
+<th class="right">70</th>
+<th class="right">Sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(x-\bar{x}\)</td>
+<td class="right">−20</td>
+<td class="right">−10</td>
+<td class="right">0</td>
+<td class="right">10</td>
+<td class="right">20</td>
+<td class="right"></td>
+</tr>
+<tr>
+<td>\(y-\bar{y}\)</td>
+<td class="right">−14</td>
+<td class="right">−8</td>
+<td class="right">−2</td>
+<td class="right">8</td>
+<td class="right">16</td>
+<td class="right"></td>
+</tr>
+<tr>
+<td>Product</td>
+<td class="right">280</td>
+<td class="right">80</td>
+<td class="right">0</td>
+<td class="right">80</td>
+<td class="right">320</td>
+<td class="right">760</td>
+</tr>
+<tr>
+<td>\((x-\bar{x})^2\)</td>
+<td class="right">400</td>
+<td class="right">100</td>
+<td class="right">0</td>
+<td class="right">100</td>
+<td class="right">400</td>
+<td class="right">1,000</td>
+</tr>
+<tr>
+<td>\((y-\bar{y})^2\)</td>
+<td class="right">196</td>
+<td class="right">64</td>
+<td class="right">4</td>
+<td class="right">64</td>
+<td class="right">256</td>
+<td class="right">584</td>
+</tr>
+</tbody>
+</table></div>
+<p>Covariance = 760 ÷ 4 = 190. Correlation \(r\) = 760 ÷ √(1,000 × 584) = 760 ÷ 764.2 = <strong>0.99</strong>, a very strong positive relationship. \(r^2\) = 0.99 means that 99% of the variation in blood pressure in this small group moves together with age.</p>
+</div>
+<figure class="fig" id="fig-5">
+<div class="fig__scroll"><svg viewBox="0 0 680 202" role="img" aria-label="Four scatter plots with correlations of 0.89, minus 0.61, 0.02 and 0.05; the last is a strong curved relationship"><text x="6" y="18" class="ttl">Strong positive</text><rect class="panel" x="6" y="30" width="152" height="140" rx="6"/><circle class="s1 ring" cx="101.3" cy="90.4" r="3.2"/><circle class="s1 ring" cx="49.6" cy="132" r="3.2"/><circle class="s1 ring" cx="17.4" cy="113.4" r="3.2"/><circle class="s1 ring" cx="14" cy="145.2" r="3.2"/><circle class="s1 ring" cx="126.1" cy="64.9" r="3.2"/><circle class="s1 ring" cx="140.1" cy="64" r="3.2"/><circle class="s1 ring" cx="97" cy="66.3" r="3.2"/><circle class="s1 ring" cx="114.3" cy="59" r="3.2"/><circle class="s1 ring" cx="88.1" cy="84.3" r="3.2"/><circle class="s1 ring" cx="143.2" cy="87.8" r="3.2"/><circle class="s1 ring" cx="126.5" cy="68.3" r="3.2"/><circle class="s1 ring" cx="12" cy="130.7" r="3.2"/><circle class="s1 ring" cx="132.3" cy="52.1" r="3.2"/><circle class="s1 ring" cx="16.4" cy="145.3" r="3.2"/><circle class="s1 ring" cx="114.3" cy="52.4" r="3.2"/><circle class="s1 ring" cx="36.4" cy="142.2" r="3.2"/><circle class="s1 ring" cx="133.1" cy="73.6" r="3.2"/><circle class="s1 ring" cx="87.8" cy="80.5" r="3.2"/><circle class="s1 ring" cx="53.8" cy="113.3" r="3.2"/><circle class="s1 ring" cx="71.1" cy="76.7" r="3.2"/><circle class="s1 ring" cx="15.6" cy="135.1" r="3.2"/><circle class="s1 ring" cx="29.1" cy="137.6" r="3.2"/><circle class="s1 ring" cx="106" cy="86.6" r="3.2"/><circle class="s1 ring" cx="102.7" cy="98.1" r="3.2"/><circle class="s1 ring" cx="98.2" cy="103.4" r="3.2"/><circle class="s1 ring" cx="65.6" cy="98.3" r="3.2"/><circle class="s1 ring" cx="152" cy="45.5" r="3.2"/><circle class="s1 ring" cx="149.7" cy="37.5" r="3.2"/><circle class="s1 ring" cx="108.1" cy="90.3" r="3.2"/><circle class="s1 ring" cx="103.2" cy="61" r="3.2"/><circle class="s1 ring" cx="108.5" cy="83.9" r="3.2"/><circle class="s1 ring" cx="66.4" cy="85.3" r="3.2"/><circle class="s1 ring" cx="30.6" cy="134" r="3.2"/><circle class="s1 ring" cx="113.2" cy="86.9" r="3.2"/><circle class="s1 ring" cx="85.6" cy="91" r="3.2"/><circle class="s1 ring" cx="55.3" cy="99.4" r="3.2"/><circle class="s1 ring" cx="80" cy="95.6" r="3.2"/><circle class="s1 ring" cx="136.8" cy="70.3" r="3.2"/><circle class="s1 ring" cx="143.1" cy="76.5" r="3.2"/><circle class="s1 ring" cx="62" cy="127.4" r="3.2"/><circle class="s1 ring" cx="92.1" cy="83.6" r="3.2"/><circle class="s1 ring" cx="56.9" cy="98.9" r="3.2"/><circle class="s1 ring" cx="95.3" cy="90.5" r="3.2"/><circle class="s1 ring" cx="59.2" cy="124.8" r="3.2"/><circle class="s1 ring" cx="66.7" cy="94.4" r="3.2"/><circle class="s1 ring" cx="136.9" cy="79.5" r="3.2"/><circle class="s1 ring" cx="43.6" cy="129.7" r="3.2"/><circle class="s1 ring" cx="99.3" cy="77.6" r="3.2"/><circle class="s1 ring" cx="23.5" cy="162.5" r="3.2"/><circle class="s1 ring" cx="128.8" cy="62.4" r="3.2"/><circle class="s1 ring" cx="122.4" cy="79.2" r="3.2"/><circle class="s1 ring" cx="45.3" cy="117.7" r="3.2"/><circle class="s1 ring" cx="135" cy="64.7" r="3.2"/><circle class="s1 ring" cx="19.9" cy="132.3" r="3.2"/><circle class="s1 ring" cx="58.9" cy="101.6" r="3.2"/><circle class="s1 ring" cx="32.8" cy="137" r="3.2"/><circle class="s1 ring" cx="75" cy="82" r="3.2"/><circle class="s1 ring" cx="123.7" cy="61.1" r="3.2"/><circle class="s1 ring" cx="44.1" cy="108.8" r="3.2"/><circle class="s1 ring" cx="19" cy="120.1" r="3.2"/><text x="82" y="192" class="ann" text-anchor="middle">r = 0.89</text><text x="178" y="18" class="ttl">Moderate negative</text><rect class="panel" x="178" y="30" width="152" height="140" rx="6"/><circle class="s1 ring" cx="231.2" cy="137.3" r="3.2"/><circle class="s1 ring" cx="248.2" cy="147.1" r="3.2"/><circle class="s1 ring" cx="315.2" cy="152.4" r="3.2"/><circle class="s1 ring" cx="316.9" cy="126.7" r="3.2"/><circle class="s1 ring" cx="197.3" cy="72.7" r="3.2"/><circle class="s1 ring" cx="183.8" cy="66.8" r="3.2"/><circle class="s1 ring" cx="247.4" cy="85.2" r="3.2"/><circle class="s1 ring" cx="311.5" cy="143.6" r="3.2"/><circle class="s1 ring" cx="297.7" cy="136.3" r="3.2"/><circle class="s1 ring" cx="310.9" cy="95.8" r="3.2"/><circle class="s1 ring" cx="298" cy="129.2" r="3.2"/><circle class="s1 ring" cx="206.5" cy="83.8" r="3.2"/><circle class="s1 ring" cx="321.4" cy="156.2" r="3.2"/><circle class="s1 ring" cx="234" cy="91" r="3.2"/><circle class="s1 ring" cx="183.8" cy="110.2" r="3.2"/><circle class="s1 ring" cx="189.8" cy="95" r="3.2"/><circle class="s1 ring" cx="187.7" cy="89.7" r="3.2"/><circle class="s1 ring" cx="265.4" cy="118.9" r="3.2"/><circle class="s1 ring" cx="264.6" cy="100.3" r="3.2"/><circle class="s1 ring" cx="198" cy="70.7" r="3.2"/><circle class="s1 ring" cx="279.1" cy="99.1" r="3.2"/><circle class="s1 ring" cx="206.1" cy="90.5" r="3.2"/><circle class="s1 ring" cx="241.3" cy="119.1" r="3.2"/><circle class="s1 ring" cx="230.6" cy="103.2" r="3.2"/><circle class="s1 ring" cx="303.9" cy="139.6" r="3.2"/><circle class="s1 ring" cx="220.2" cy="116.4" r="3.2"/><circle class="s1 ring" cx="319.5" cy="98.4" r="3.2"/><circle class="s1 ring" cx="318.8" cy="162.5" r="3.2"/><circle class="s1 ring" cx="214" cy="78.9" r="3.2"/><circle class="s1 ring" cx="194.6" cy="98.4" r="3.2"/><circle class="s1 ring" cx="282.1" cy="161.7" r="3.2"/><circle class="s1 ring" cx="204" cy="45.3" r="3.2"/><circle class="s1 ring" cx="289.6" cy="133.7" r="3.2"/><circle class="s1 ring" cx="232.6" cy="127.8" r="3.2"/><circle class="s1 ring" cx="199.4" cy="37.5" r="3.2"/><circle class="s1 ring" cx="278.7" cy="127.3" r="3.2"/><circle class="s1 ring" cx="300.7" cy="126.3" r="3.2"/><circle class="s1 ring" cx="250.1" cy="73.6" r="3.2"/><circle class="s1 ring" cx="199.7" cy="112.5" r="3.2"/><circle class="s1 ring" cx="193.1" cy="109.5" r="3.2"/><circle class="s1 ring" cx="222.6" cy="82.5" r="3.2"/><circle class="s1 ring" cx="302.4" cy="119.7" r="3.2"/><circle class="s1 ring" cx="212" cy="113.7" r="3.2"/><circle class="s1 ring" cx="268.8" cy="150.4" r="3.2"/><circle class="s1 ring" cx="262.8" cy="145.5" r="3.2"/><circle class="s1 ring" cx="200.6" cy="77.9" r="3.2"/><circle class="s1 ring" cx="272.8" cy="88.1" r="3.2"/><circle class="s1 ring" cx="259" cy="84" r="3.2"/><circle class="s1 ring" cx="303.4" cy="118.6" r="3.2"/><circle class="s1 ring" cx="211" cy="83.6" r="3.2"/><circle class="s1 ring" cx="232.4" cy="151.6" r="3.2"/><circle class="s1 ring" cx="205.4" cy="91.1" r="3.2"/><circle class="s1 ring" cx="257.9" cy="122.6" r="3.2"/><circle class="s1 ring" cx="204.7" cy="58.9" r="3.2"/><circle class="s1 ring" cx="297.5" cy="130.7" r="3.2"/><circle class="s1 ring" cx="238.1" cy="100.1" r="3.2"/><circle class="s1 ring" cx="207.4" cy="87" r="3.2"/><circle class="s1 ring" cx="318.1" cy="123.7" r="3.2"/><circle class="s1 ring" cx="191" cy="71.9" r="3.2"/><circle class="s1 ring" cx="299" cy="76.9" r="3.2"/><text x="254" y="192" class="ann" text-anchor="middle">r = −0.61</text><text x="350" y="18" class="ttl">No relationship</text><rect class="panel" x="350" y="30" width="152" height="140" rx="6"/><circle class="s1 ring" cx="468.9" cy="72" r="3.2"/><circle class="s1 ring" cx="469.3" cy="72.1" r="3.2"/><circle class="s1 ring" cx="428.2" cy="120.9" r="3.2"/><circle class="s1 ring" cx="395.9" cy="103.6" r="3.2"/><circle class="s1 ring" cx="363.2" cy="56.8" r="3.2"/><circle class="s1 ring" cx="409.6" cy="114.2" r="3.2"/><circle class="s1 ring" cx="413.1" cy="94.7" r="3.2"/><circle class="s1 ring" cx="362" cy="102.5" r="3.2"/><circle class="s1 ring" cx="362.5" cy="81.5" r="3.2"/><circle class="s1 ring" cx="496.3" cy="111.8" r="3.2"/><circle class="s1 ring" cx="447.4" cy="105.5" r="3.2"/><circle class="s1 ring" cx="388.6" cy="93.3" r="3.2"/><circle class="s1 ring" cx="416.8" cy="97.5" r="3.2"/><circle class="s1 ring" cx="492.7" cy="128.5" r="3.2"/><circle class="s1 ring" cx="482" cy="70.1" r="3.2"/><circle class="s1 ring" cx="474.4" cy="143.2" r="3.2"/><circle class="s1 ring" cx="410.9" cy="140.9" r="3.2"/><circle class="s1 ring" cx="425" cy="143.4" r="3.2"/><circle class="s1 ring" cx="450.9" cy="68.2" r="3.2"/><circle class="s1 ring" cx="364.2" cy="113.7" r="3.2"/><circle class="s1 ring" cx="433.8" cy="132.9" r="3.2"/><circle class="s1 ring" cx="393.8" cy="139" r="3.2"/><circle class="s1 ring" cx="479.4" cy="85.9" r="3.2"/><circle class="s1 ring" cx="364.7" cy="136.8" r="3.2"/><circle class="s1 ring" cx="451.2" cy="142.7" r="3.2"/><circle class="s1 ring" cx="478.1" cy="79.5" r="3.2"/><circle class="s1 ring" cx="387.6" cy="141.2" r="3.2"/><circle class="s1 ring" cx="481.7" cy="110.6" r="3.2"/><circle class="s1 ring" cx="478.4" cy="100.2" r="3.2"/><circle class="s1 ring" cx="358.2" cy="116.6" r="3.2"/><circle class="s1 ring" cx="455.2" cy="102.1" r="3.2"/><circle class="s1 ring" cx="355.8" cy="57.3" r="3.2"/><circle class="s1 ring" cx="426.5" cy="117.9" r="3.2"/><circle class="s1 ring" cx="417.1" cy="142.8" r="3.2"/><circle class="s1 ring" cx="384.2" cy="162.5" r="3.2"/><circle class="s1 ring" cx="401.4" cy="107.9" r="3.2"/><circle class="s1 ring" cx="469.1" cy="111.8" r="3.2"/><circle class="s1 ring" cx="400.2" cy="92.3" r="3.2"/><circle class="s1 ring" cx="376.6" cy="117" r="3.2"/><circle class="s1 ring" cx="453.9" cy="116.2" r="3.2"/><circle class="s1 ring" cx="418.8" cy="124.9" r="3.2"/><circle class="s1 ring" cx="468.1" cy="117.4" r="3.2"/><circle class="s1 ring" cx="388.8" cy="96" r="3.2"/><circle class="s1 ring" cx="400.6" cy="113.8" r="3.2"/><circle class="s1 ring" cx="468.2" cy="96.8" r="3.2"/><circle class="s1 ring" cx="427" cy="37.5" r="3.2"/><circle class="s1 ring" cx="426.9" cy="84.8" r="3.2"/><circle class="s1 ring" cx="388.9" cy="153.8" r="3.2"/><circle class="s1 ring" cx="357.7" cy="44.2" r="3.2"/><circle class="s1 ring" cx="487" cy="88.2" r="3.2"/><circle class="s1 ring" cx="367.7" cy="133" r="3.2"/><circle class="s1 ring" cx="474.5" cy="69.8" r="3.2"/><circle class="s1 ring" cx="407.4" cy="100.5" r="3.2"/><circle class="s1 ring" cx="489.5" cy="120.2" r="3.2"/><circle class="s1 ring" cx="411.8" cy="122" r="3.2"/><circle class="s1 ring" cx="487.4" cy="132.8" r="3.2"/><circle class="s1 ring" cx="433.9" cy="99" r="3.2"/><circle class="s1 ring" cx="389.4" cy="65.8" r="3.2"/><circle class="s1 ring" cx="460" cy="111" r="3.2"/><circle class="s1 ring" cx="450.5" cy="86.4" r="3.2"/><text x="426" y="192" class="ann" text-anchor="middle">r = 0.02</text><text x="522" y="18" class="ttl">Curved relationship</text><rect class="panel" x="522" y="30" width="152" height="140" rx="6"/><circle class="s1 ring" cx="625.3" cy="135.1" r="3.2"/><circle class="s1 ring" cx="617.9" cy="131.1" r="3.2"/><circle class="s1 ring" cx="545.7" cy="81.8" r="3.2"/><circle class="s1 ring" cx="543.6" cy="72.7" r="3.2"/><circle class="s1 ring" cx="619.6" cy="137.8" r="3.2"/><circle class="s1 ring" cx="647.7" cy="82.7" r="3.2"/><circle class="s1 ring" cx="556" cy="106.9" r="3.2"/><circle class="s1 ring" cx="558.3" cy="118.7" r="3.2"/><circle class="s1 ring" cx="628.5" cy="116.2" r="3.2"/><circle class="s1 ring" cx="593.9" cy="139.8" r="3.2"/><circle class="s1 ring" cx="586.1" cy="126.1" r="3.2"/><circle class="s1 ring" cx="576.8" cy="138.7" r="3.2"/><circle class="s1 ring" cx="536.6" cy="62.8" r="3.2"/><circle class="s1 ring" cx="591.6" cy="159.4" r="3.2"/><circle class="s1 ring" cx="570.1" cy="161.7" r="3.2"/><circle class="s1 ring" cx="582.4" cy="153.4" r="3.2"/><circle class="s1 ring" cx="603.7" cy="143.5" r="3.2"/><circle class="s1 ring" cx="623.8" cy="139.7" r="3.2"/><circle class="s1 ring" cx="615.6" cy="162.5" r="3.2"/><circle class="s1 ring" cx="632.2" cy="115.3" r="3.2"/><circle class="s1 ring" cx="530.2" cy="42.9" r="3.2"/><circle class="s1 ring" cx="619.7" cy="140" r="3.2"/><circle class="s1 ring" cx="603.9" cy="151.1" r="3.2"/><circle class="s1 ring" cx="647.4" cy="90.8" r="3.2"/><circle class="s1 ring" cx="659.8" cy="52.8" r="3.2"/><circle class="s1 ring" cx="529.4" cy="50" r="3.2"/><circle class="s1 ring" cx="644.2" cy="99" r="3.2"/><circle class="s1 ring" cx="563.3" cy="123.6" r="3.2"/><circle class="s1 ring" cx="615.6" cy="131.5" r="3.2"/><circle class="s1 ring" cx="635.2" cy="123.7" r="3.2"/><circle class="s1 ring" cx="646.8" cy="77.5" r="3.2"/><circle class="s1 ring" cx="660" cy="51" r="3.2"/><circle class="s1 ring" cx="617" cy="126.2" r="3.2"/><circle class="s1 ring" cx="648.6" cy="92.9" r="3.2"/><circle class="s1 ring" cx="597.7" cy="141.6" r="3.2"/><circle class="s1 ring" cx="560.5" cy="111.5" r="3.2"/><circle class="s1 ring" cx="550.2" cy="105.9" r="3.2"/><circle class="s1 ring" cx="597.7" cy="150.5" r="3.2"/><circle class="s1 ring" cx="632.5" cy="123.5" r="3.2"/><circle class="s1 ring" cx="590.9" cy="155.1" r="3.2"/><circle class="s1 ring" cx="623.5" cy="139.1" r="3.2"/><circle class="s1 ring" cx="545.3" cy="93.6" r="3.2"/><circle class="s1 ring" cx="664.4" cy="46.5" r="3.2"/><circle class="s1 ring" cx="594.3" cy="145.2" r="3.2"/><circle class="s1 ring" cx="644" cy="104" r="3.2"/><circle class="s1 ring" cx="630.2" cy="136.4" r="3.2"/><circle class="s1 ring" cx="637.5" cy="102.2" r="3.2"/><circle class="s1 ring" cx="581.6" cy="144.9" r="3.2"/><circle class="s1 ring" cx="543.2" cy="76" r="3.2"/><circle class="s1 ring" cx="591.7" cy="149.3" r="3.2"/><circle class="s1 ring" cx="574.3" cy="139.3" r="3.2"/><circle class="s1 ring" cx="583.7" cy="138.4" r="3.2"/><circle class="s1 ring" cx="667.3" cy="37.5" r="3.2"/><circle class="s1 ring" cx="571.1" cy="130.8" r="3.2"/><circle class="s1 ring" cx="637.8" cy="122.4" r="3.2"/><circle class="s1 ring" cx="551" cy="109.1" r="3.2"/><circle class="s1 ring" cx="611.2" cy="147.4" r="3.2"/><circle class="s1 ring" cx="576.4" cy="121.3" r="3.2"/><circle class="s1 ring" cx="561.7" cy="115.3" r="3.2"/><circle class="s1 ring" cx="582.9" cy="126.8" r="3.2"/><text x="598" y="192" class="ann" text-anchor="middle">r = 0.05</text></svg></div>
+<figcaption><strong>Figure 5. What different values of r look like.</strong> The last panel is the warning: a strong curved relationship can have r close to zero, because r only measures straight-line relationships. Always look at the scatter plot.</figcaption>
+</figure>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Size of r (ignore the sign)</th>
+<th>Rough description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.00 to 0.19</td>
+<td>Very weak</td>
+</tr>
+<tr>
+<td>0.20 to 0.39</td>
+<td>Weak</td>
+</tr>
+<tr>
+<td>0.40 to 0.59</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>0.60 to 0.79</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>0.80 to 1.00</td>
+<td>Very strong</td>
+</tr>
+</tbody>
+</table></div>
+<p>These labels are a common guide only. What counts as "strong" depends on the field. In studies of human behaviour 0.3 can be important. In laboratory calibration 0.9 can be poor.</p>
+<p><strong>Spearman's rank correlation</strong> (\(r_s\) or \(\rho\)) replaces each value with its rank (1st, 2nd, 3rd...) and then calculates Pearson's r on the ranks. Use it when the data are ordinal, skewed, contain outliers, or follow a curve that keeps rising or keeps falling.</p>
+<div class="box box--mistake">
+<p class="box__label">Common mistake</p>
+<p><strong>Correlation is not causation.</strong> Three other explanations must be ruled out before claiming that X causes Y:</p>
+<ul>
+<li><strong>Confounding</strong>: a third variable drives both. Ice cream sales and drowning deaths rise together because both rise in hot weather.</li>
+<li><strong>Reverse causation</strong>: Y causes X. Sick people may stop exercising, so "no exercise" and "illness" correlate.</li>
+<li><strong>Chance</strong>: with many variables some will correlate by accident.</li>
+</ul>
+<p>A related error is the <strong>ecological fallacy</strong>: finding a correlation between district averages and then assuming it holds for each individual person.</p>
+</div>
+<div class="box box--own">
+<p class="box__label">From my own work</p>
+<p>Confounding showed up in my <a href="../project.html?p=nhanes">NHANES mortality analysis</a>. People with prediabetes had a crude death rate of 19.4 per 1,000 person-years, against 10.8 with normal glucose. After full adjustment the hazard ratio was 0.99 (0.92 to 1.06). The excess was age.</p>
+</div>
+<h2 id="charts">Choosing the right chart</h2>
+<div class="table-wrap t-wide"><table>
+<thead>
+<tr>
+<th>What you want to show</th>
+<th>Chart</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Counts or percentages across categories</td>
+<td>Bar chart</td>
+<td>Bars have gaps between them. Start the axis at zero. Sort bars by size unless the categories have a natural order.</td>
+</tr>
+<tr>
+<td>Shape of one numerical variable</td>
+<td>Histogram</td>
+<td>Bars touch because the scale is continuous. Try more than one bin width.</td>
+</tr>
+<tr>
+<td>Compare a numerical variable across groups</td>
+<td>Box plot</td>
+<td>Shows median, spread and outliers for each group side by side.</td>
+</tr>
+<tr>
+<td>Cases over time during an outbreak</td>
+<td>Epidemic curve</td>
+<td>A histogram of cases by date of onset. Its shape suggests how the disease spreads (<a href="#fig-1">Figure 1</a>).</td>
+</tr>
+<tr>
+<td>Trend of a rate over years</td>
+<td>Line chart</td>
+<td>Time on the horizontal axis.</td>
+</tr>
+<tr>
+<td>Relationship between two numerical variables</td>
+<td>Scatter plot</td>
+<td>Outcome on the vertical axis.</td>
+</tr>
+<tr>
+<td>Rates across areas</td>
+<td>Shaded map</td>
+<td>Map rates, not raw counts, or the map will only show where people live.</td>
+</tr>
+<tr>
+<td>Shares of a whole</td>
+<td>Bar chart, or pie chart for 2 or 3 groups only</td>
+<td>Angles are hard to compare. Avoid pie charts with many slices and all 3D charts.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="table-1">Reporting: Table 1</h2>
+<p>Almost every public health paper begins with a table describing the study participants. The rules:</p>
+<ul>
+<li>Categorical variables: number and percentage, written as n (%).</li>
+<li>Symmetric numerical variables: mean (SD).</li>
+<li>Skewed numerical variables: median (IQR), giving Q1 and Q3.</li>
+<li>State the total sample size, and report how many values are missing for each variable.</li>
+<li>Use sensible rounding. One decimal place is enough for most percentages and means.</li>
+</ul>
+<div class="box box--example">
+<p class="box__label">Example layout <span class="box__tag">Illustrative numbers</span></p>
+<div class="table-wrap t-mid"><table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>All participants (n = 400)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Age in years, mean (SD)</td>
+<td>41.6 (12.3)</td>
+</tr>
+<tr>
+<td>Female, n (%)</td>
+<td>216 (54.0)</td>
+</tr>
+<tr>
+<td>Residence: urban, n (%)</td>
+<td>148 (37.0)</td>
+</tr>
+<tr>
+<td>Systolic blood pressure in mmHg, mean (SD)</td>
+<td>126.4 (15.8)</td>
+</tr>
+<tr>
+<td>Monthly household income in BDT, median (IQR)</td>
+<td>22,000 (15,000 to 35,000)</td>
+</tr>
+<tr>
+<td>Current smoker, n (%)</td>
+<td>88 (22.0)</td>
+</tr>
+<tr>
+<td>Body mass index missing, n (%)</td>
+<td>12 (3.0)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="box box--mistake">
+<p class="box__label">Common mistakes in descriptive statistics</p>
+<ul>
+<li>Reporting a mean without any measure of spread.</li>
+<li>Reporting mean (SD) for skewed data such as income or length of stay. A result like "mean stay 6.0 days (SD 7.8)" is a warning sign: the SD is larger than the mean for a variable that cannot be negative.</li>
+<li>Giving percentages without the count they are based on. "50% improved" could be 1 of 2 patients.</li>
+<li>Confusing SD with standard error (SE). SD describes how spread out the people are. SE describes how precise the mean is. <a href="inferential-statistics.html#standard-error">Part 3</a> explains the difference.</li>
+<li>Calculating a mean of percentages from groups of different sizes without weighting.</li>
+</ul>
+</div>
+<h2 id="check">Check yourself</h2>
+<p>Try each question first, then open it to see the answer.</p>
+<details class="qa">
+<summary>Household health spending in a survey has mean 4,800 BDT and median 1,900 BDT. What does this tell you, and which should you report?</summary>
+<p>The mean is much higher than the median, so the data are right-skewed: a few households spent very large amounts. Report the median with the IQR.</p>
+</details>
+<details class="qa">
+<summary>A district reports 480 tuberculosis cases in a year in a population of 1.2 million. Another reports 150 cases in a population of 250,000. Which has the bigger problem?</summary>
+<p>Rates: 480 ÷ 1,200,000 × 100,000 = 40 per 100,000, and 150 ÷ 250,000 × 100,000 = 60 per 100,000. The second district has fewer cases but a higher rate.</p>
+</details>
+<details class="qa">
+<summary>A girl's weight-for-age z-score is −3.2. What does it mean?</summary>
+<p>Her weight is 3.2 standard deviations below the median of healthy girls of her age. Below −3 is classified as severely underweight.</p>
+</details>
+<details class="qa">
+<summary>Is "number of antenatal care visits" nominal, ordinal, discrete or continuous?</summary>
+<p>Discrete. It is a whole-number count.</p>
+</details>
+<details class="qa">
+<summary>The correlation between a district's number of doctors and its number of deaths is +0.8. Do doctors cause deaths?</summary>
+<p>No. Population size is a confounder: large districts have more doctors and more deaths. Compare rates per population instead of counts.</p>
+</details>
+<details class="qa">
+<summary>Find the median and IQR of these ages at diagnosis: 22, 25, 29, 31, 34, 38, 45, 52.</summary>
+<p>Median = (31 + 34) ÷ 2 = 32.5. Lower half 22, 25, 29, 31 gives Q1 = 27. Upper half 34, 38, 45, 52 gives Q3 = 41.5. IQR = 14.5.</p>
+</details>
+<h2 id="formulas">Formula sheet</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mean</td>
+<td>\(\bar{x}=\sum x_i/n\)</td>
+</tr>
+<tr>
+<td>Weighted mean</td>
+<td>\(\bar{x}_w=\sum w_i x_i/\sum w_i\)</td>
+</tr>
+<tr>
+<td>Variance and SD</td>
+<td>\(s^2=\sum(x_i-\bar{x})^2/(n-1)\), \(s=\sqrt{s^2}\)</td>
+</tr>
+<tr>
+<td>Interquartile range</td>
+<td>\(\text{IQR}=Q_3-Q_1\)</td>
+</tr>
+<tr>
+<td>Coefficient of variation</td>
+<td>\(CV=(s/\bar{x})\times 100\%\)</td>
+</tr>
+<tr>
+<td>Outlier fences</td>
+<td>\(Q_1-1.5\,\text{IQR}\) and \(Q_3+1.5\,\text{IQR}\)</td>
+</tr>
+<tr>
+<td>z-score</td>
+<td>\(z=(x-\mu)/\sigma\)</td>
+</tr>
+<tr>
+<td>Pearson correlation</td>
+<td>\(r=\dfrac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum(x_i-\bar{x})^2\,\sum(y_i-\bar{y})^2}}\)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="glossary">Glossary</h2>
+<div class="table-wrap t-mid"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in simple words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Case fatality</td>
+<td>The share of people with a disease who die from it.</td>
+</tr>
+<tr>
+<td>Confounder</td>
+<td>A third variable related to both the exposure and the outcome that distorts their relationship.</td>
+</tr>
+<tr>
+<td>Incidence</td>
+<td>New cases of a disease in a population over a period of time.</td>
+</tr>
+<tr>
+<td>Outlier</td>
+<td>A value far from the rest of the data.</td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>A true but usually unknown number describing a population.</td>
+</tr>
+<tr>
+<td>Percentile</td>
+<td>The value below which a given percentage of the data fall.</td>
+</tr>
+<tr>
+<td>Prevalence</td>
+<td>The share of a population that has a condition at a given time.</td>
+</tr>
+<tr>
+<td>Robust</td>
+<td>Not strongly affected by extreme values.</td>
+</tr>
+<tr>
+<td>Skewness</td>
+<td>Lack of symmetry: one tail of the distribution is longer.</td>
+</tr>
+<tr>
+<td>Standard deviation</td>
+<td>The typical distance of individual values from the mean.</td>
+</tr>
+<tr>
+<td>Statistic</td>
+<td>A number calculated from a sample.</td>
+</tr>
+<tr>
+<td>z-score</td>
+<td>How many standard deviations a value is from the mean.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="sources">Sources</h2>
+<ol>
+<li>Dengue in Bangladesh, 2023 (321,179 hospitalised cases, 1,705 deaths, monthly counts). Directorate General of Health Services daily dengue reports, as compiled in: Hossain M. et al. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12106341/">The 2023 Dengue Outbreak in Bangladesh: An Epidemiological Update</a>. Health Science Reports, 2025. Cases to 30 June 2023: <a href="https://www.who.int/emergencies/disease-outbreak-news/item/2023-DON481">WHO Disease Outbreak News, Dengue, Bangladesh</a>. The DGHS live dashboard groups some cases by a different date and shows slightly different monthly figures.</li>
+<li>Bangladesh Demographic and Health Survey 2022 (stunting 24%, wasting 11%, underweight 22%, under-5 mortality 31 per 1,000 live births, caesarean births 45%, 30,018 households). NIPORT and ICF. <a href="https://dhsprogram.com/pubs/pdf/PR148/PR148.pdf">Key Indicators Report</a>.</li>
+<li><a href="https://www.who.int/tools/child-growth-standards/standards/length-height-for-age">WHO Child Growth Standards</a> (length-for-age, boys, 24 months: median 87.8 cm; −2 SD 81.7 cm).</li>
+<li>COVID-19 incubation period. Lauer S.A. et al. The Incubation Period of Coronavirus Disease 2019 (COVID-19) From Publicly Reported Confirmed Cases. Annals of Internal Medicine, 2020; 172: 577-582.</li>
+<li>Salk polio vaccine field trial, 1954. Francis T. et al. An evaluation of the 1954 poliomyelitis vaccine trials. American Journal of Public Health, 1955; 45 (5, Part 2). Counts for the placebo-controlled areas as tabulated at <a href="https://www.randomservices.org/random/data/Polio.html">randomservices.org</a>.</li>
+<li>Population of Bangladesh. Bangladesh Bureau of Statistics, Population and Housing Census 2022 (about 170 million).</li>
+</ol>
+    </article>
+  </div>
+  <nav id="pager" class="pp__pager" aria-label="More posts"></nav>
+</main>
+<footer class="footer">
+  <div class="wrap"><p>© <span id="year">2026</span> Md. Ashiqur Rahman Khan</p><p><a href="index.html">All posts</a></p></div>
+</footer>
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../data/site.js?v=20261007a"></script>
+<script defer src="../js/blog.js?v=20261007a"></script>
+</body>
+</html>
