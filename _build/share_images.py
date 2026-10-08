@@ -23,7 +23,12 @@ def cis():
         miss=(p-1.96*s>.24) or (p+1.96*s<.24); c="#d95926" if miss else "#1fa8ab"; x=14+i*31
         out+=f'<line x1="{x}" x2="{x}" y1="{y(p-1.96*s):.1f}" y2="{y(p+1.96*s):.1f}" stroke="{c}" stroke-width="4" stroke-linecap="round"/><circle cx="{x}" cy="{y(p):.1f}" r="7" fill="{c}" stroke="#0f1722" stroke-width="3"/>'
     return f'<svg width="430" height="300" viewBox="0 0 430 300"><line x1="0" x2="430" y1="{y(.24):.1f}" y2="{y(.24):.1f}" stroke="#e8eef5" stroke-width="2"/>{out}</svg>'
-CARDS=[("descriptive-statistics","Statistics for Public Health · Part 1","Descriptive statistics for public health",bars()),
+def gap():
+    import sys; sys.path.insert(0,str(Path(__file__).resolve().parent)); from figures import NAT23, PUB23
+    nat,pub=NAT23[17:],PUB23[17:]; x=lambda i:i/(len(nat)-1)*430; y=lambda v:300-v/21000*290
+    top=" L".join(f"{x(i):.1f} {y(v):.1f}" for i,v in enumerate(nat)); bot=" L".join(f"{x(i):.1f} {y(v):.1f}" for i,v in reversed(list(enumerate(pub))))
+    return f'<svg width="430" height="300" viewBox="0 0 430 300"><path d="M{top} L{bot} Z" fill="#d95926" fill-opacity=".22"/><path d="M{" L".join(f"{x(i):.1f} {y(v):.1f}" for i,v in enumerate(pub))}" fill="none" stroke="#d95926" stroke-width="4" stroke-linejoin="round"/><path d="M{top}" fill="none" stroke="#1fa8ab" stroke-width="4" stroke-linejoin="round"/><line x1="0" x2="430" y1="300" y2="300" stroke="#33465e" stroke-width="2"/></svg>'
+CARDS=[("dengue-missing-admissions","From my projects","105,000 dengue admissions were missing from the 2023 division data",gap()),("descriptive-statistics","Statistics for Public Health · Part 1","Descriptive statistics for public health",bars()),
        ("probability-and-distributions","Statistics for Public Health · Part 2","Probability and distributions for public health",bell()),
        ("inferential-statistics","Statistics for Public Health · Part 3","Inferential statistics for public health",cis()),
        ("blog","Blog","Study notes on statistics for public health data",bell())]
@@ -36,7 +41,7 @@ body{{margin:0;width:1200px;height:630px;background:#0f1722;color:#e8eef5;font-f
 .s{{font:400 22px "JetBrains Mono";color:#4cc2c4}}
 h1{{font-weight:400;font-size:62px;line-height:1.08;letter-spacing:-.02em;margin:28px 0 0}}
 .f{{margin-top:auto;font:300 24px Geologica;color:#a3b3c5}}.f b{{font:400 22px "JetBrains Mono";color:#e8eef5;margin-right:18px}}
-</style><div class="l"><div class="s">{series}</div><h1>{title}</h1><div class="f"><b>ashiqur.khan</b>Md. Ashiqur Rahman Khan</div></div><div>{art}</div>'''
+</style><div class="l"><div class="s">{series}</div><h1>{title}</h1><div class="f"><b>ASHIQ.KHAN</b>Md. Ashiqur Rahman Khan</div></div><div>{art}</div>'''
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch(); pg=await b.new_page(viewport={"width":1200,"height":630})

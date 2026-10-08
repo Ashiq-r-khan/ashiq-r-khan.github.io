@@ -10,7 +10,7 @@ from figures import FIGS
 
 HERE = Path(__file__).resolve().parent
 SITE = HERE.parent
-V = "20261007a"
+V = "20261008a"
 BASE = "https://ashiq-r-khan.github.io"
 BOXES = {"simple": "In simple words", "example": "Example", "mistake": "Common mistake", "remember": "Remember", "own": "From my own work", "note": ""}
 TAGS = {"real": "Real data", "illus": "Illustrative numbers"}
@@ -144,7 +144,7 @@ POST = """<!doctype html>
 <main class="wrap art" data-slug="{slug}">
   <a class="pp__back" href="index.html"><svg class="icon"><use href="#i-back"/></svg>All posts</a>
   <header class="art__head">
-    <p class="hero__role">{series} · Part {part} of {parts}</p>
+    <p class="hero__role">{kicker}</p>
     <h1>{title}</h1>
     <p class="pp__intro">{standfirst}</p>
     <p class="art__meta"><time datetime="{iso}">{date}</time> · {minutes} min read</p>
@@ -173,11 +173,11 @@ INDEX = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog | Md. Ashiqur Rahman Khan</title>
-<meta name="description" content="Study notes on statistics for public health data by Md. Ashiqur Rahman Khan, with definitions in simple words and worked examples.">
+<meta name="description" content="Short posts on problems from the data projects of Md. Ashiqur Rahman Khan, and longer study notes on statistics for public health.">
 <meta name="theme-color" content="#0f1722">
 <link rel="canonical" href="{base}/blog/">
 <meta property="og:title" content="Blog | Md. Ashiqur Rahman Khan">
-<meta property="og:description" content="Study notes on statistics for public health data, with definitions in simple words and worked examples.">
+<meta property="og:description" content="Short posts on problems from my data projects, and longer study notes on statistics for public health.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{base}/blog/">
 <meta property="og:image" content="{base}/assets/blog/blog.jpg">
@@ -191,7 +191,7 @@ INDEX = """<!doctype html>
 <main class="wrap blog">
   <a class="pp__back" href="../index.html"><svg class="icon"><use href="#i-back"/></svg>Home</a>
   <h1>Blog</h1>
-  <p class="blog__intro">Study notes on statistics for public health data. Each post takes one topic, explains it in simple words and works through the examples by hand.</p>
+  <p class="blog__intro">Short posts on problems I ran into in my own data projects, and longer study notes on statistics for public health.</p>
   <div id="blog-list"></div>
   <noscript><p>The post list needs JavaScript.</p></noscript>
 </main>
@@ -211,13 +211,17 @@ def front(text):
 
 def build():
     posts = []
-    for path in sorted((HERE / "posts").glob("*.md")):
+    files = sorted((HERE / "posts").glob("*.md"))
+    metas = [front(p.read_text(encoding="utf-8"))[0] for p in files]
+    for path in files:
         meta, body = front(path.read_text(encoding="utf-8"))
         body_html = convert(body)
         words = len(re.sub(r"<svg.*?</svg>|<[^>]+>|\\\(.*?\\\)|\\\[.*?\\\]", " ", body_html, flags=re.S).split())
         meta["minutes"] = round(words / 200)
         meta["words"] = words
-        page = POST.format(body=body_html, icons=ICONS, nav=NAV, foot=FOOT.format(href="index.html", label="All posts"), v=V, base=BASE, url=f"{BASE}/blog/{meta['slug']}.html", desc=html.escape(meta["excerpt"]), parts=3, **{k: v for k, v in meta.items() if k not in ("excerpt",)})
+        parts = sum(1 for q in metas if q.get("series") == meta.get("series") and "part" in q)
+        kicker = f"{meta['series']} · Part {meta['part']} of {parts}" if "part" in meta else meta["series"]
+        page = POST.format(body=body_html, icons=ICONS, nav=NAV, foot=FOOT.format(href="index.html", label="All posts"), v=V, base=BASE, url=f"{BASE}/blog/{meta['slug']}.html", desc=html.escape(meta["excerpt"]), kicker=kicker, **{k: v for k, v in meta.items() if k not in ("excerpt", "series", "part")})
         (SITE / "blog").mkdir(exist_ok=True)
         (SITE / "blog" / f"{meta['slug']}.html").write_text(page, encoding="utf-8")
         posts.append(meta)

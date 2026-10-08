@@ -12,5 +12,5 @@ if(art){
   links.forEach(a=>a.addEventListener('click',()=>{if(small.matches)toc.open=false}));
   addEventListener('scroll',mark,{passive:true});mark();
   const me=POSTS.find(p=>p.slug===art.dataset.slug),s=POSTS.filter(p=>p.series===me.series),k=s.indexOf(me),prev=s[k-1],next=s[k+1],pdf=(SERIES[me.series]||{}).pdf;
-  $('#pager').innerHTML=`<a href="${prev?prev.slug+'.html':'index.html'}">${ic('back')}${prev?`Part ${prev.part}: ${prev.title}`:'All posts'}</a>${pdf?`<a href="../${pdf}">${ic('file')}Full notes as PDF</a>`:''}<a href="${next?next.slug+'.html':'index.html'}">${next?`Part ${next.part}: ${next.title}`:'All posts'}${ic('next')}</a>`;
+  $('#pager').innerHTML=`<a href="${prev?prev.slug+'.html':'index.html'}">${ic('back')}${prev?(prev.part?`Part ${prev.part}: `:'')+prev.title:'All posts'}</a>${pdf?`<a href="../${pdf}">${ic('file')}Full notes as PDF</a>`:''}${next||prev?`<a href="${next?next.slug+'.html':'index.html'}">${next?(next.part?`Part ${next.part}: `:'')+next.title:'All posts'}${ic('next')}</a>`:''}`;
 }

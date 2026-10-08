@@ -260,12 +260,23 @@ const PROJECTS=[
   }
 ];
 const SERIES={
+  "From my projects":{
+    text:"Short posts on one problem or decision from my own projects, with the numbers behind it."
+  },
   "Statistics for Public Health":{
     text:"My study notes on the statistics a public health data analyst uses every day. Each idea has a definition in simple words, the formula and a worked example.",
     pdf:"assets/notes/statistics-for-public-health.pdf"
   }
 };
 const POSTS=[
+  {
+    slug:"dengue-missing-admissions",
+    series:"From my projects",
+    date:"8 October 2026",
+    minutes:6,
+    title:"105,000 dengue admissions were missing from the 2023 division data",
+    excerpt:"In 2023 the divisions on the DGHS dengue dashboard were short by about 105,000 admissions. How I found out why and rebuilt them from 176 daily press releases."
+  },
   {
     slug:"descriptive-statistics",
     series:"Statistics for Public Health",
@@ -295,4 +306,4 @@ const POSTS=[
   }
 ];
 const postUrl=(p,base="")=>p.url||`${base}blog/${p.slug}.html`;
-const postCard=(p,base="")=>`<article class="card post">${p.series?`<p class="post__series">${p.series} · Part ${p.part}</p>`:""}<h3><a href="${postUrl(p,base)}">${p.title}</a></h3><p class="post__excerpt">${p.excerpt}</p><p class="post__foot"><a href="${postUrl(p,base)}">${p.url?"Read on LinkedIn":"Read post"}</a><span>${p.date}${p.minutes?` · ${p.minutes} min`:""}</span></p></article>`;
+const postCard=(p,base="")=>`<article class="card post">${p.series?`<p class="post__series">${p.series}${p.part?` · Part ${p.part}`:""}</p>`:""}<h3><a href="${postUrl(p,base)}">${p.title}</a></h3><p class="post__excerpt">${p.excerpt}</p><p class="post__foot"><a href="${postUrl(p,base)}">${p.url?"Read on LinkedIn":"Read post"}</a><span>${p.date}${p.minutes?` · ${p.minutes} min`:""}</span></p></article>`;

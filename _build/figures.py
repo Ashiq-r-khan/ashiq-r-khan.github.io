@@ -375,7 +375,34 @@ def fig_power():
     return svg(276, "".join(b), "Two overlapping curves for the null and alternative hypotheses with the critical value, showing alpha, beta and power as areas")
 
 
-FIGS = {"dengue": fig_dengue, "boxplot": fig_boxplot, "shapes": fig_shapes, "zscore": fig_zscore, "scatter": fig_scatter, "ppv": fig_ppv, "binomial": fig_binomial, "poisson": fig_poisson, "negbin": fig_negbin, "normal": fig_normal_rule, "t": fig_t, "clt": fig_clt, "ci": lambda: fig_ci()[0], "pvalue": fig_pvalue, "power": fig_power}
+
+# ---------------------------------------------------------------- Project posts
+NAT23 = [106, 54, 47, 26, 29, 24, 22, 13, 14, 21, 16, 14, 19, 21, 19, 8, 36, 82, 119, 140, 246, 515, 678, 1288, 1746, 869, 2369, 6746, 11231, 15722, 17561, 18538, 15354, 14324, 15510, 17641, 19227, 20155, 18689, 17416, 16429, 15739, 12872, 11939, 12283, 9880, 7232, 5768, 3809, 2209, 1290, 801]
+PUB23 = [105, 54, 47, 26, 29, 24, 22, 13, 14, 21, 16, 14, 19, 21, 19, 8, 36, 82, 119, 139, 244, 508, 669, 1280, 1713, 865, 2361, 6150, 9906, 6967, 7841, 8536, 7191, 7949, 8402, 11166, 12645, 14101, 13564, 13051, 12461, 11540, 9117, 9242, 9771, 7818, 5656, 4507, 3007, 1673, 960, 604]
+
+
+def fig_dengue_gap():
+    import datetime as dt
+    weeks = [dt.date(2023, 1, 1) + dt.timedelta(weeks=i) for i in range(52)]
+    p = Plot(80, 40, 574, 230, 17, 51, 0, 21000)
+    xs = np.arange(17, 52)
+    nat, pub = NAT23[17:], PUB23[17:]
+    b = [p.ygrid([0, 5000, 10000, 15000, 20000], comma), p.baseline()]
+    b.append(f'<path class="a2" d="{p.path(xs, nat)} L{" L".join(f"{f(p.x(x))} {f(p.y(v))}" for x, v in zip(xs[::-1], pub[::-1]))} Z"/>')
+    b.append(f'<path class="l2" d="{p.path(xs, pub)}"/><path class="l1" d="{p.path(xs, nat)}"/>')
+    for i, w in enumerate(weeks):
+        if w.day <= 7 and i >= 17:
+            b.append(txt(p.x(i), p.y(0) + 18, w.strftime("%b"), anchor="middle"))
+    sw = 29
+    b.append(line(p.x(sw), p.y(19000), p.x(sw), p.y(0), "thr"))
+    b.append(txt(p.x(sw) - 8, p.y(18500), "Week of 23 July: Dhaka city", "ann", "end") + txt(p.x(sw) - 8, p.y(18500) + 17, "drops out of the Dhaka series", "ann", "end"))
+    b.append(txt(p.x(47.2), p.y(18200), "About 105,000", "ttl", "middle") + txt(p.x(47.2), p.y(18200) + 17, "admissions missing", "ann", "middle") + line(p.x(46.2), p.y(18200) + 24, p.x(40.6), p.y(14300), "lead"))
+    b.append(line(70, 12, 96, 12, "l1") + txt(104, 16, "National total", "ann") + line(240, 12, 266, 12, "l2") + txt(274, 16, "Sum of the 8 divisions, as published", "ann"))
+    b.append(f'<text transform="translate(14 {f(p.y0 + p.h / 2)}) rotate(-90)" text-anchor="middle">Admissions per week</text>')
+    return svg(300, "".join(b), "Line chart of weekly dengue admissions in Bangladesh in 2023: the national total and the sum of the eight divisions as published, with a gap of about 105,000 admissions opening from late July")
+
+
+FIGS = {"dengue": fig_dengue, "boxplot": fig_boxplot, "shapes": fig_shapes, "zscore": fig_zscore, "scatter": fig_scatter, "ppv": fig_ppv, "binomial": fig_binomial, "poisson": fig_poisson, "negbin": fig_negbin, "normal": fig_normal_rule, "t": fig_t, "clt": fig_clt, "ci": lambda: fig_ci()[0], "pvalue": fig_pvalue, "power": fig_power, "dengue_gap": fig_dengue_gap}
 
 if __name__ == "__main__":
     for k, fn in FIGS.items():
