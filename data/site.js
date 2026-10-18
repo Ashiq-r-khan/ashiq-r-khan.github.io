@@ -4,6 +4,45 @@ const SITE={
 };
 const PROJECTS=[
   {
+    slug:"air",
+    title:"Fine particle pollution exposure in Bangladesh, 1998 to 2024",
+    repo:"Bangladesh-Air-Pollution-Exposure-Analysis",
+    image:"assets/projects/air.jpg",
+    year:"2026",
+    field:"Environmental health, spatial statistics",
+    summary:"Population-weighted PM2.5 for the country, 8 divisions, 64 districts and 507 upazilas from 27 years of satellite data, with trend and spatial statistics, spatial regression, machine learning and a Power BI dashboard.",
+    result:"The average person breathes 13.5 times the WHO guideline, and the rise stopped around 2010.",
+    intro:"How much fine particulate pollution (PM2.5) people in Bangladesh breathe, where it is worst and how it changed since 1998, from satellite estimates weighted by where people live, with raster processing, DuckDB SQL, trend and spatial statistics in R, machine learning and a Power BI dashboard.",
+    question:"How much PM2.5 does the average person in Bangladesh breathe, where is it worst, how has it changed since 1998, and what goes with higher pollution?",
+    data:"ACAG SatPM2.5 V6.GL.03 satellite estimates for 1998 to 2024, annual at about 1 km and monthly at about 10 km, weighted by WorldPop 2022 population at 100 m and summarised for 507 upazilas, 64 districts and 8 divisions using HDX boundaries.",
+    tools:["Python (rasterio, XGBoost, SHAP)","DuckDB SQL","R (spdep, spatialreg, trend)","Power BI"],
+    findings:[
+      {stat:"67.6 \u00b5g/m\u00b3",title:"The average person breathes 13.5 times the WHO guideline",text:"Population-weighted PM2.5 was 67.6 in 2020 to 2024, up 47% from 46.1 in 1998 to 2002. In 2024, 99.4% of people (167.3 million) lived above 35, the national standard."},
+      {stat:"+0.06 a year",title:"The rise stopped around 2010",text:"The national Sen's slope was +2.15 a year in 1998 to 2010 and +0.06 a year in 2011 to 2024 (p = 0.83). Over the full period 500 of 507 upazilas still show a significant rise."},
+      {stat:"121 vs 26",title:"January is more than four times worse than July",text:"Winter drives the exposure. December rose the most in absolute terms, August the most in relative terms, so the seasonal swing narrowed from 5.6 times to 4.6 times."},
+      {stat:"Moran's I 0.95",title:"Pollution clusters around Dhaka",text:"One hot cluster holds 117 upazilas and 53.9 million people, and the clean cluster is in Sylhet. Dhaka district averaged 83.9 and Sylhet district 39.5. The clustering fades by about 124 km."},
+      {stat:"0.94 to 0.66",title:"Random cross-validation overstated the models",text:"XGBoost reached R\u00b2 0.94 with random folds but 0.66 when whole regions were held out, because neighbouring upazilas leak into random folds. Linear regression fell from 0.64 to 0.28."},
+      {stat:"6.1 years",title:"Cleaner air would add years of life",text:"With the AQLI method, the average person loses an estimated 6.1 years of life expectancy against the WHO guideline, and meeting the national standard would win back about 3.2. These are estimates, not measured deaths."}
+    ],
+    methods:[
+      "Downloaded 27 years of ACAG PM2.5 rasters in one data version, cropped to Bangladesh, and logged every file in a manifest.",
+      "Aligned WorldPop to the PM2.5 grid and computed population-weighted and area-weighted means for every area, year and month.",
+      "Answered 12 questions in DuckDB SQL, including WHO bands, rankings and a sensitivity check for the 2018 spike.",
+      "Tested trends with Mann-Kendall (Hamed-Rao correction) and Sen's slope, with Benjamini-Hochberg across 507 upazilas and STL for seasonality.",
+      "Measured clustering with Moran's I, a correlogram, LISA clusters and Getis-Ord Gi* hot spots.",
+      "Compared OLS with SAR, SEM, SLX, SDM and SDEM, and interpreted the spatial error model, which removed the residual clustering.",
+      "Compared linear regression, random forest and XGBoost under random and spatial cross-validation, with SHAP for the drivers.",
+      "Built a 7-page Power BI dashboard with a district drill-through on 27 tables that only displays the results."
+    ],
+    shots:[
+      {src:"assets/projects/air/1.jpg",caption:"Executive summary"},
+      {src:"assets/projects/air/2.jpg",caption:"Exposure map"},
+      {src:"assets/projects/air/3.jpg",caption:"People at risk"},
+      {src:"assets/projects/air/4.jpg",caption:"Drivers"}
+    ],
+    links:[{label:"Read the full report",href:"assets/reports/air.pdf"}]
+  },
+  {
     slug:"dengue",
     title:"Forecasting dengue hospital admissions in Bangladesh",
     repo:"Bangladesh-Dengue-Forecasting-Analysis",
